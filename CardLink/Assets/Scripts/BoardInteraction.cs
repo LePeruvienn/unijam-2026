@@ -46,7 +46,18 @@ public class BoardInteraction : MonoBehaviour
 
 		if (click > 0f)
 		{
-			_clickedPlayedCard = GetPlayedCardUnderCursor();
+			PlayedCard newClickedCard = GetPlayedCardUnderCursor();
+
+			if (newClickedCard == _clickedPlayedCard)
+			{
+				_clickedPlayedCard = null;
+				Debug.Log("UnSetAttack");
+			}
+			else
+			{
+				Debug.Log("Set New Attack!");
+				_clickedPlayedCard = newClickedCard;
+			}
 		}
 	}
 
@@ -70,12 +81,12 @@ public class BoardInteraction : MonoBehaviour
 	}
 	
 	// Public methods
-	PlayedCard GetHoveredPlayedCard()
+	public PlayedCard GetHoveredPlayedCard()
 	{
 		return _hoveredPlayedCard;
 	}
 
-	PlayedCard GetClickedPlayedCard()
+	public PlayedCard GetClickedPlayedCard()
 	{
 		return _clickedPlayedCard;
 	}
