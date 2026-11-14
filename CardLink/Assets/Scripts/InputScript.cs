@@ -28,6 +28,8 @@ public class InputScript : MonoBehaviour
     [SerializeField] float distanceBetweenCards;
     [SerializeField] float screenProportionToPlay;
 
+    [SerializeField] BoardTerrain BoardTerrain;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -113,6 +115,17 @@ public class InputScript : MonoBehaviour
         //Temp
     }
 
+    public void PlayCard(UnityEngine.InputSystem.InputAction.CallbackContext context){
+        if(context.ReadValue<float>() == 0){ //temp
+            return;
+        }
+
+        if(persoPlay && selectedCard != -1){
+            BoardTerrain.AddNewCard(null, p1cards[selectedCard].position);
+        }
+
+    }
+
     public void MouseMove(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
         mousePosScreen = context.ReadValue<Vector2>();
@@ -123,4 +136,5 @@ public class InputScript : MonoBehaviour
         mouseClick = context.ReadValue<float>() == 1;
         mouseClickSt = context.ReadValue<float>() == 1;
     }
+    
 }

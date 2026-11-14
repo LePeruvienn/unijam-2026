@@ -119,6 +119,82 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &69509603
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2000028932128767702, guid: 879706c2f00aeaa40b20fd75f95b3dcc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000028932128767702, guid: 879706c2f00aeaa40b20fd75f95b3dcc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000028932128767702, guid: 879706c2f00aeaa40b20fd75f95b3dcc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000028932128767702, guid: 879706c2f00aeaa40b20fd75f95b3dcc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000028932128767702, guid: 879706c2f00aeaa40b20fd75f95b3dcc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000028932128767702, guid: 879706c2f00aeaa40b20fd75f95b3dcc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000028932128767702, guid: 879706c2f00aeaa40b20fd75f95b3dcc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000028932128767702, guid: 879706c2f00aeaa40b20fd75f95b3dcc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000028932128767702, guid: 879706c2f00aeaa40b20fd75f95b3dcc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000028932128767702, guid: 879706c2f00aeaa40b20fd75f95b3dcc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3947769907526798625, guid: 879706c2f00aeaa40b20fd75f95b3dcc, type: 3}
+      propertyPath: m_Name
+      value: Main
+      objectReference: {fileID: 0}
+    - target: {fileID: 4617646181903978162, guid: 879706c2f00aeaa40b20fd75f95b3dcc, type: 3}
+      propertyPath: persoPlay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4617646181903978162, guid: 879706c2f00aeaa40b20fd75f95b3dcc, type: 3}
+      propertyPath: BoardTerrain
+      value: 
+      objectReference: {fileID: 916538439}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 879706c2f00aeaa40b20fd75f95b3dcc, type: 3}
+--- !u!114 &370855959 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4617646181903978162, guid: 879706c2f00aeaa40b20fd75f95b3dcc, type: 3}
+  m_PrefabInstance: {fileID: 69509603}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 123b82f164bcfa445b1b3a4eaa92a702, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InputScript
 --- !u!1 &487635477
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,7 +365,7 @@ MonoBehaviour:
   playedCards: []
   cardWidth: 3
   boardInteraction: {fileID: 1260898227}
-  playedCardPrefab: {fileID: 0}
+  playedCardPrefab: {fileID: 3613447073118337839, guid: 4016ffb0ed734d4eaa2007ce28174368, type: 3}
 --- !u!1 &1218493651
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,6 +597,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 370855959}
+        m_TargetAssemblyTypeName: InputScript, Assembly-CSharp
+        m_MethodName: MouseMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 32b35790-4ed0-4e9a-aa41-69ac6d629449
     m_ActionName: 'UI/Point[/Mouse/position]'
   - m_PersistentCalls:
@@ -537,10 +625,34 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 370855959}
+        m_TargetAssemblyTypeName: InputScript, Assembly-CSharp
+        m_MethodName: MouseClick
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 3c7022bf-7922-4f7c-a998-c437916075ad
     m_ActionName: 'UI/Click[/Mouse/leftButton]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 370855959}
+        m_TargetAssemblyTypeName: InputScript, Assembly-CSharp
+        m_MethodName: PlayCard
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 44b200b1-1557-4083-816c-b22cbdf77ddf
     m_ActionName: 'UI/RightClick[/Mouse/rightButton]'
   - m_PersistentCalls:
@@ -718,3 +830,4 @@ SceneRoots:
   - {fileID: 487635478}
   - {fileID: 916538438}
   - {fileID: 1260898226}
+  - {fileID: 69509603}

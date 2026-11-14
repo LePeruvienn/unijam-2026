@@ -128,4 +128,4 @@ MonoBehaviour:
   hoveredPosition: {x: 0, y: 1, z: 0}
   idlePosition: {x: 0, y: 0, z: 0}
   attackPosition: {x: 0, y: 0, z: 1}
-  animationSpeed: 2
+  animationSpeed: 20

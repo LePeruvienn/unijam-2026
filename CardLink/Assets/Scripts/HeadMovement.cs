@@ -19,7 +19,6 @@ public class HeadMovement : MonoBehaviour
         cam = Camera.main;
         transform.position = p1HeadPos;
         transform.rotation = Quaternion.Euler(p1HeadRot);
-        ChangeHeadPos(true);
     }
     public void ChangeHeadPos(bool player1to2){
         StartCoroutine(ChangeHeadPosCoroutine(player1to2));

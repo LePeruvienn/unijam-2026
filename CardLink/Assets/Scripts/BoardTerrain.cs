@@ -67,7 +67,7 @@ public class BoardTerrain : MonoBehaviour
 
 	public void AddNewCard(Card card, Vector3 spawnPos)
 	{
-		PlayedCard played = Instantiate(playedCardPrefab, spawnPos, Quaternion.identity);
+		PlayedCard played = Instantiate(playedCardPrefab, spawnPos, Quaternion.identity, this.transform);
 		played.SetModel(card);
 
 		playedCards.Add(played);
