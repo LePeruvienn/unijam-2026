@@ -21,8 +21,11 @@ public class PlayedCard : MonoBehaviour
 
 	private bool _isRotated = false;
 
+	[Header("DEBUG")]
+	[SerializeField]
 	private State _state = State.Idle;
 
+	[SerializeField]
 	private Vector3 _targetPosition = Vector3.zero;
 
 	private Card _model;

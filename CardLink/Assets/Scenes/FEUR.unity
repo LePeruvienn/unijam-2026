@@ -179,6 +179,18 @@ PrefabInstance:
       propertyPath: BoardTerrain
       value: 
       objectReference: {fileID: 916538439}
+    - target: {fileID: 4617646181903978162, guid: 879706c2f00aeaa40b20fd75f95b3dcc, type: 3}
+      propertyPath: p1BoardTerrain
+      value: 
+      objectReference: {fileID: 916538439}
+    - target: {fileID: 4617646181903978162, guid: 879706c2f00aeaa40b20fd75f95b3dcc, type: 3}
+      propertyPath: p2BoardTerrain
+      value: 
+      objectReference: {fileID: 1725749930}
+    - target: {fileID: 4617646181903978162, guid: 879706c2f00aeaa40b20fd75f95b3dcc, type: 3}
+      propertyPath: turnController
+      value: 
+      objectReference: {fileID: 997134729}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -201,7 +213,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &88440348
 RectTransform:
   m_ObjectHideFlags: 0
@@ -609,9 +621,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 997134729}
-        m_TargetAssemblyTypeName: TurnController, Assembly-CSharp
-        m_MethodName: Next
+      - m_Target: {fileID: 370855959}
+        m_TargetAssemblyTypeName: InputScript, Assembly-CSharp
+        m_MethodName: AttackCard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2617,6 +2629,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1647405350}
   m_CullTransparentMesh: 1
+--- !u!114 &1725749930 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3706650968397424750, guid: a0245db60bc9c52dfbddbde0de393808, type: 3}
+  m_PrefabInstance: {fileID: 1507771630}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49f6b2ebd7a20fff79f480a04686ef53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoardTerrain
 --- !u!1 &1759840628
 GameObject:
   m_ObjectHideFlags: 0

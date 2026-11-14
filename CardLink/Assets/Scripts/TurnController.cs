@@ -71,6 +71,8 @@ public class TurnController : MonoBehaviour
 
     public void Next()
     {
+        Debug.Log($"Pahse : {Phase}");
+
         var other = CurrentPlayer.OtherPlayer();
         switch (Phase)
         {
