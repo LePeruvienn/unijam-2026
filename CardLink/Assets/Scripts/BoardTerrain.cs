@@ -5,7 +5,7 @@ public class BoardTerrain : MonoBehaviour
 {
 	[Header("Played Cards")]
 	[SerializeField] private List<PlayedCard> playedCards = new List<PlayedCard>();
-
+	
 	[Header("Size")]
 	[SerializeField] private float cardWidth = 2f;
 
@@ -14,6 +14,8 @@ public class BoardTerrain : MonoBehaviour
 
 	[Header("Prefab")]
 	[SerializeField] private PlayedCard playedCardPrefab;
+
+	private bool _rotateCards = false;
 
 	// Unity Functions
 
@@ -87,5 +89,22 @@ public class BoardTerrain : MonoBehaviour
 		}
 
 		Debug.LogError("Failed to delete card from board terrain");
+	}
+
+	public bool GetRotateCards()
+	{
+		return _rotateCards;
+	}
+
+	public void SetRotate(bool value)
+	{
+		for (int i = 0; i < playedCards.Count; ++i)
+		{
+			PlayedCard played = playedCards[i];
+
+			played.SetIsRotated(value);
+		}
+
+		_rotateCards = value;
 	}
 }

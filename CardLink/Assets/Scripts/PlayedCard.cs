@@ -17,6 +17,8 @@ public class PlayedCard : MonoBehaviour
 	[Header("Animations")]
 	[SerializeField] private float animationSpeed = 2f;
 
+	private bool _isRotated = false;
+
 	private State _state = State.Idle;
 
 	private Vector3 _targetPosition = Vector3.zero;
@@ -24,6 +26,36 @@ public class PlayedCard : MonoBehaviour
 	private Card _model;
 
 	protected void Update()
+	{
+		UpdatePosition();
+		UpdateRotation();
+	}
+
+	private void UpdateRotation()
+	{
+		if (_isRotated)
+		{
+			Vector3 targetRotation = transform.localEulerAngles;
+			targetRotation.y = 180f;
+
+			transform.localEulerAngles = Vector3.Lerp(
+				transform.localEulerAngles,
+				targetRotation,
+				Time.deltaTime * animationSpeed);
+		}
+		else
+		{
+			Vector3 targetRotation = transform.localEulerAngles;
+			targetRotation.y = 0f;
+
+			transform.localEulerAngles = Vector3.Lerp(
+				transform.localEulerAngles,
+				targetRotation,
+				Time.deltaTime * animationSpeed);
+		}
+	}
+
+	private void UpdatePosition()
 	{
 		Vector3 position = _targetPosition;
 
@@ -43,7 +75,7 @@ public class PlayedCard : MonoBehaviour
 		}
 
 		transform.localPosition = Vector3.Lerp(transform.localPosition, position,
-		                                  Time.deltaTime * animationSpeed);
+		                                       Time.deltaTime * animationSpeed);
 	}
 
 	public void SetModel(Card card)
@@ -76,5 +108,10 @@ public class PlayedCard : MonoBehaviour
 	public void SetTargetPosition(Vector3 position)
 	{
 		_targetPosition = position;
+	}
+
+	public void SetIsRotated(bool value)
+	{
+		_isRotated = value;
 	}
 }
