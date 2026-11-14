@@ -5,7 +5,8 @@ using UnityEngine.InputSystem;
 
 public class InputScript : MonoBehaviour
 {
-    [SerializeField] bool persoPlay; //temp
+    public bool persoPlay;
+    public bool player1;
     [SerializeField] int cardNumber; //temp
     [SerializeField] Transform[] p1cards;
 
@@ -28,7 +29,9 @@ public class InputScript : MonoBehaviour
     [SerializeField] float distanceBetweenCards;
     [SerializeField] float screenProportionToPlay;
 
-    [SerializeField] BoardTerrain BoardTerrain;
+    [SerializeField] BoardTerrain p1BoardTerrain;
+    [SerializeField] BoardTerrain p2BoardTerrain;
+    [SerializeField] TurnController turnController;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -111,6 +114,7 @@ public class InputScript : MonoBehaviour
     }
 
     public void SetCard(){
+        selectedCard = -1;
         Debug.Log("Set cards");
         //Temp
     }
@@ -119,11 +123,23 @@ public class InputScript : MonoBehaviour
         if(context.ReadValue<float>() == 0){ //temp
             return;
         }
-
+        
         if(persoPlay && selectedCard != -1){
-            BoardTerrain.AddNewCard(null, p1cards[selectedCard].position);
+            persoPlay = false;
+            if(player1){
+                p1BoardTerrain.AddNewCard(null, p1cards[selectedCard].position);
+            }else{
+                p2BoardTerrain.AddNewCard(null, p1cards[selectedCard].position);
+            }
+            turnController.Next();
         }
+    }
 
+    public void AttackCard(){
+        Debug.Log("testte" + (player1 ? 1 : 2));
+        if((player1 && p1BoardTerrain.ApplySelection()) || (!player1 && p2BoardTerrain.ApplySelection())){
+            turnController.Next();
+        }
     }
 
     public void MouseMove(UnityEngine.InputSystem.InputAction.CallbackContext context)
@@ -136,5 +152,5 @@ public class InputScript : MonoBehaviour
         mouseClick = context.ReadValue<float>() == 1;
         mouseClickSt = context.ReadValue<float>() == 1;
     }
-    
+
 }

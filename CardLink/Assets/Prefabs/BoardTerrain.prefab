@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoardTerrain
   playedCards: []
+  attackSlot: {fileID: 8831540460426979092}
   cardWidth: 3
   boardInteraction: {fileID: 0}
   playedCardPrefab: {fileID: 3613447073118337839, guid: 4016ffb0ed734d4eaa2007ce28174368, type: 3}

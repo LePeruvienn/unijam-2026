@@ -9,12 +9,12 @@ public enum TurnPhase { ChooseAction, Play, ChooseAttacker, ChooseDefender, Reso
 public class TurnController : MonoBehaviour
 {
     [SerializeField] private GameObject panelAction;
-    [SerializeField] private GameObject PlayResolve;
+    //[SerializeField] private GameObject PlayResolve;
     [SerializeField] private GameObject AttackResolve;
     [SerializeField] private GameObject DefendResolve;
     [SerializeField] private GameObject ResolutionResolve;
-    [SerializeField] private Transform CamP1;
-    [SerializeField] private Transform CamP2;
+    [SerializeField] private HeadMovement headMovement;
+    [SerializeField] private InputScript inputScript;
 
     private Camera _cam;
     public TurnPhase Phase { get; private  set; }
@@ -31,26 +31,37 @@ public class TurnController : MonoBehaviour
 
     void SetPhase(TurnPhase turnPhase, PlayerId decider)
     {
+        if(CurrentPlayer != decider){
+            headMovement.ChangeHeadPos((int)decider == 0);
+        }
         CurrentPlayer = decider;
+        inputScript.player1 = CurrentPlayer == 0;
         Phase =  turnPhase;
         
         panelAction.SetActive(Phase == TurnPhase.ChooseAction);
-        PlayResolve.SetActive(Phase == TurnPhase.Play);
+        //PlayResolve.SetActive(Phase == TurnPhase.Play);
         AttackResolve.SetActive(Phase == TurnPhase.ChooseAttacker);
         DefendResolve.SetActive(Phase == TurnPhase.ChooseDefender);
         ResolutionResolve.SetActive(Phase == TurnPhase.Resolution);
         
+        /*
         Debug.Log(decider);
         var anchor = decider ==  PlayerId.P1 ? CamP1 : CamP2;
         Debug.Log(anchor);
         _cam.transform.SetPositionAndRotation(anchor.position, anchor.rotation);
+        */
         
+
+
         PhaseChanged?.Invoke(turnPhase, decider);
     }
 
     public void Play()
     {
         SetPhase(TurnPhase.Play, CurrentPlayer);
+        
+        inputScript.SetCard();
+        inputScript.persoPlay = true;
     }
 
     public void Attack()
@@ -64,16 +75,16 @@ public class TurnController : MonoBehaviour
         switch (Phase)
         {
             case TurnPhase.Play:
-                SetPhase(TurnPhase.Resolution, CurrentPlayer);
+                SetPhase(TurnPhase.ChooseAction, other);
                 break;
             case TurnPhase.ChooseAttacker:
                 SetPhase(TurnPhase.ChooseDefender, other);
                 break;
             case TurnPhase.ChooseDefender:
-                SetPhase(TurnPhase.Resolution, other);
+                SetPhase(TurnPhase.Resolution, CurrentPlayer);
                 break;
             case TurnPhase.Resolution:
-                SetPhase(TurnPhase.ChooseAction, other);
+                SetPhase(TurnPhase.ChooseAction, CurrentPlayer);
                 break;
         }
     }

@@ -148,7 +148,7 @@ public class BoardTerrain : MonoBehaviour
 		_isInteractible = value;
 	}
 
-	public void ApplySelection()
+	public bool ApplySelection()
 	{
 		for (int i = 0; i < playedCards.Count; ++i)
 		{
@@ -159,11 +159,12 @@ public class BoardTerrain : MonoBehaviour
 				played.SetTargetPosition(attackSlot.localPosition);
 				played.SetState(PlayedCard.State.Attacking);
 				
-				return;
+				return true;
 			}
 		}
 
-		Debug.LogError("Couldnt apply selection");
+		// Debug.LogError("Couldnt apply selection");
+		return false;
 	}
 
 	public void SetAllCardsToIdle()

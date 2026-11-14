@@ -48,6 +48,10 @@ public class BoardInteraction : MonoBehaviour
 		{
 			PlayedCard newClickedCard = GetPlayedCardUnderCursor();
 
+			if(newClickedCard == null){
+				return;
+			}
+
 			if (newClickedCard == _clickedPlayedCard)
 			{
 				_clickedPlayedCard = null;
