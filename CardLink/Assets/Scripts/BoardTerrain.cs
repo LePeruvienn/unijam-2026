@@ -69,13 +69,13 @@ public class BoardTerrain : MonoBehaviour
 
 			card.SetTargetPosition(position);
 			
-			if (hoveredCard == card)
-			{
-				card.SetState(PlayedCard.State.Hovered);
-			}
-			else if(clickedCard == card)
+			if(clickedCard == card)
 			{
 				card.SetState(PlayedCard.State.Selected);
+			}
+			else if (hoveredCard == card)
+			{
+				card.SetState(PlayedCard.State.Hovered);
 			}
 			else
 			{
@@ -110,13 +110,30 @@ public class BoardTerrain : MonoBehaviour
 		playedCards.Add(played);
 	}
 
-	public bool DeleteCard(Card card)
+	public bool DeleteFromModel(Card card)
 	{
 		for (int i = 0; i < playedCards.Count; ++i)
 		{
 			PlayedCard played = playedCards[i];
 
 			if (played.GetModel() == card)
+			{
+				playedCards.Remove(played);
+				return true;
+			}
+		}
+
+		Debug.LogError("Failed to delete card from board terrain");
+		return false;
+	}
+
+	public bool DeletePlayedCard(PlayedCard target)
+	{
+		for (int i = 0; i < playedCards.Count; ++i)
+		{
+			PlayedCard played = playedCards[i];
+
+			if (played == target)
 			{
 				playedCards.Remove(played);
 				return true;
@@ -172,12 +189,12 @@ public class BoardTerrain : MonoBehaviour
 		{
 			selected.SetTargetPosition(attackSlot.localPosition);
 			selected.SetState(PlayedCard.State.Attacking);
-      return true;
+			return true;
 		}
 		else
 		{
 			Debug.LogError("Couldnt apply selection");
-      return false;
+			return false;
 		}
 	}
 
@@ -192,7 +209,7 @@ public class BoardTerrain : MonoBehaviour
 
 	public bool KillCard(PlayedCard target)
 	{
- 		bool sucess = DeleteCard(target);
+ 		bool sucess = DeletePlayedCard(target);
 
 		if (sucess)
 		{

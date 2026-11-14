@@ -1370,11 +1370,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurnController
   panelAction: {fileID: 211694606}
-  PlayResolve: {fileID: 88440347}
   AttackResolve: {fileID: 1759840628}
   DefendResolve: {fileID: 2142976996}
   ResolutionResolve: {fileID: 1647405350}
   headMovement: {fileID: 773900167}
+  inputScript: {fileID: 370855959}
 --- !u!4 &997134730
 Transform:
   m_ObjectHideFlags: 0
