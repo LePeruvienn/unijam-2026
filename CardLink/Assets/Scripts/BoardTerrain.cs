@@ -164,7 +164,7 @@ public class BoardTerrain : MonoBehaviour
 		return null;
 	}
 
-	public void ApplySelection()
+	public bool ApplySelection()
 	{
 		PlayedCard selected = GetSelectedCard();
 
@@ -172,10 +172,12 @@ public class BoardTerrain : MonoBehaviour
 		{
 			selected.SetTargetPosition(attackSlot.localPosition);
 			selected.SetState(PlayedCard.State.Attacking);
+      return true;
 		}
 		else
 		{
 			Debug.LogError("Couldnt apply selection");
+      return false;
 		}
 	}
 

@@ -35,7 +35,7 @@ public class HeadMovement : MonoBehaviour
                 cam.transform.position = Vector3.Lerp(Vector3.Lerp(p2HeadPos, intermediaryHeadPos, tempVar), p1HeadPos, Mathf.Pow(tempVar, 1.5f));
                 cam.transform.rotation = Quaternion.Euler(Vector3.Lerp(p2HeadRot, p1HeadRot, tempVar));
             }
-            tempVar += Time.deltaTime * 0.65f;
+            tempVar += Time.deltaTime * 1f;
             yield return null;
         }
         if(player1to2){
