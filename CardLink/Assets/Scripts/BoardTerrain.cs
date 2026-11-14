@@ -5,6 +5,7 @@ public class BoardTerrain : MonoBehaviour
 {
 	[Header("Played Cards")]
 	[SerializeField] private List<PlayedCard> playedCards = new List<PlayedCard>();
+	[SerializeField] private Transform attackSlot;
 	
 	[Header("Size")]
 	[SerializeField] private float cardWidth = 2f;
@@ -16,10 +17,39 @@ public class BoardTerrain : MonoBehaviour
 	[SerializeField] private PlayedCard playedCardPrefab;
 
 	private bool _rotateCards = false;
+	private bool _isInteractible = true;
 
 	// Unity Functions
 
 	protected void Update()
+	{
+		if (_isInteractible)
+		{
+			HandleInteraction();
+		}
+		else
+		{
+			HandleIdle();
+		}
+	}
+
+	private void HandleIdle()
+	{
+		for (int i = 0; i < playedCards.Count; ++i)
+		{
+			PlayedCard card = playedCards[i];
+
+			card.SetState(PlayedCard.State.Idle);
+
+			float x = GetCardPosition(i);
+
+			Vector3 position =  new Vector3(x, 0f, 0f);
+
+			card.SetTargetPosition(position);
+		}
+	}
+
+	private void HandleInteraction()
 	{
 		PlayedCard hoveredCard = boardInteraction.GetHoveredPlayedCard();
 		PlayedCard clickedCard = boardInteraction.GetClickedPlayedCard();
@@ -27,6 +57,11 @@ public class BoardTerrain : MonoBehaviour
 		for (int i = 0; i < playedCards.Count; ++i)
 		{
 			PlayedCard card = playedCards[i];
+			
+			if (card.GetState() == PlayedCard.State.Attacking)
+			{
+				continue;
+			}
 
 			float x = GetCardPosition(i);
 
@@ -40,7 +75,7 @@ public class BoardTerrain : MonoBehaviour
 			}
 			else if(clickedCard == card)
 			{
-				card.SetState(PlayedCard.State.Attacking);
+				card.SetState(PlayedCard.State.Selected);
 			}
 			else
 			{
@@ -48,7 +83,7 @@ public class BoardTerrain : MonoBehaviour
 			}
 		}
 	}
-
+	
 	// Implementation
 
 	private float GetCardPosition(int index)
@@ -106,5 +141,37 @@ public class BoardTerrain : MonoBehaviour
 		}
 
 		_rotateCards = value;
+	}
+
+	public void SetIsInteractible(bool value)
+	{
+		_isInteractible = value;
+	}
+
+	public void ApplySelection()
+	{
+		for (int i = 0; i < playedCards.Count; ++i)
+		{
+			PlayedCard played = playedCards[i];
+
+			if (played.GetState() == PlayedCard.State.Selected)
+			{
+				played.SetTargetPosition(attackSlot.localPosition);
+				played.SetState(PlayedCard.State.Attacking);
+				
+				return;
+			}
+		}
+
+		Debug.LogError("Couldnt apply selection");
+	}
+
+	public void SetAllCardsToIdle()
+	{
+		for (int i = 0; i < playedCards.Count; ++i)
+		{
+			PlayedCard played = playedCards[i];
+			played.SetState(PlayedCard.State.Idle);
+		}
 	}
 }

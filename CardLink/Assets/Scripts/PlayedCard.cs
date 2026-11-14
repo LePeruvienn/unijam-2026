@@ -6,6 +6,7 @@ public class PlayedCard : MonoBehaviour
 	{
 		Idle,
 		Hovered,
+		Selected,
 		Attacking
 	}
 
@@ -69,8 +70,10 @@ public class PlayedCard : MonoBehaviour
 				position += hoveredPosition;
 				break;
 
-			case State.Attacking:
-				position += attackPosition;
+			case State.Selected:
+				Vector3 offset = (_isRotated) ?
+					attackPosition * -1 : attackPosition;
+				position += offset;
 				break;
 		}
 
@@ -93,15 +96,20 @@ public class PlayedCard : MonoBehaviour
 		_state = state;
 	}
 
+	public State GetState()
+	{
+		return _state;
+	}
+
 	public void ToggleAttackState()
 	{
-		if(_state == State.Attacking)
+		if(_state == State.Selected)
 		{
 			_state = State.Idle;
 		}
 		else
 		{
-			_state = State.Attacking;
+			_state = State.Selected;
 		}
 	}
 
