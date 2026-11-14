@@ -136,7 +136,6 @@ public class InputScript : MonoBehaviour
     }
 
     public void AttackCard(){
-        Debug.Log("testte" + (player1 ? 1 : 2));
         if((player1 && p1BoardTerrain.ApplySelection()) || (!player1 && p2BoardTerrain.ApplySelection())){
             turnController.Next();
         }

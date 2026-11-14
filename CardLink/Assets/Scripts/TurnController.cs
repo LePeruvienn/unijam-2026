@@ -32,7 +32,7 @@ public class TurnController : MonoBehaviour
     void SetPhase(TurnPhase turnPhase, PlayerId decider)
     {
         if(CurrentPlayer != decider){
-            headMovement.ChangeHeadPos((int)decider == 0);
+            headMovement.ChangeHeadPos((int)decider == 1);
         }
         CurrentPlayer = decider;
         inputScript.player1 = CurrentPlayer == 0;
