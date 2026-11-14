@@ -34,4 +34,10 @@ public class Card : ScriptableObject
     // Brise Lien détruit tous les liens d'une carte en mourant
     public bool aBriseLien;
 
+
+    [Header("Autres")]
+    // Un pacifique ne peut pas attaquer
+    public bool aPacifisme;
+    // Une brute ne peut pas bloquer
+    public bool aBrutal;
 }
