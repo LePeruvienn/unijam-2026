@@ -351,8 +351,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 123b82f164bcfa445b1b3a4eaa92a702, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InputScript
-  player1Playing: 1
-  persoAddCard: 1
+  persoPlay: 1
+  cardNumber: 3
   p1cards:
   - {fileID: 55188347}
   - {fileID: 1691566442}

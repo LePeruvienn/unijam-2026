@@ -5,10 +5,9 @@ using UnityEngine.InputSystem;
 
 public class InputScript : MonoBehaviour
 {
-    [SerializeField] bool player1Playing; //temp
-    [SerializeField] bool persoAddCard; //temp
-
-    [SerializeField] List<Transform> p1cards; //temp
+    [SerializeField] bool persoPlay; //temp
+    [SerializeField] int cardNumber; //temp
+    [SerializeField] Transform[] p1cards;
 
     Camera cam;
 
@@ -18,7 +17,7 @@ public class InputScript : MonoBehaviour
     Vector2 mousePosScreen; //position de la souris, en pixels
     Vector2 mousePos; //position de la souris, entre (-x et x) et (0 et 1)
 
-    List<Vector2> cardPos = new List<Vector2>();
+    Vector2[] cardPos;
     int selectedCard;
     
     [SerializeField] float distanceForwardToCamera;
@@ -38,38 +37,34 @@ public class InputScript : MonoBehaviour
         mousePosScreen = Vector2.zero;
         selectedCard = -1;
 
-        cardPos = new List<Vector2>();
-        for (int i = 0; i < p1cards.Count; i++)
+        cardPos = new Vector2[3];
+        for (int i = 0; i < 3; i++)
         {
-            cardPos.Add(-distanceBelowToHideFromCamera * Vector2.up);
+            cardPos[i] = Vector2.zero;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if(player1Playing && persoAddCard){
-
-            for (int i = 0; i < cardPos.Count; i++)
+        if(persoPlay){
+            for (int i = 0; i < 3; i++)
             {
                 cardPos[i] = new Vector2(distanceBetweenCards * (i -1), posBelowPutDown);
             }
-
             if(mousePos.y <= screenProportionToPlay){
                 int newSelectedCard = -1;
-                if(mousePos.x > -0.4f && mousePos.x < -0.15f && cardPos.Count > 0){
+                if(mousePos.x > -0.4f && mousePos.x < -0.15f && cardNumber > 0){
                     newSelectedCard = 0;
                 }
-                if(mousePos.x > -0.15f && mousePos.x < 0.15f && cardPos.Count > 1){
+                if(mousePos.x > -0.15f && mousePos.x < 0.15f && cardNumber > 1){
                     newSelectedCard = 1;
                 }
-                if(mousePos.x > 0.15f && mousePos.x < 0.4f && cardPos.Count > 2){
+                if(mousePos.x > 0.15f && mousePos.x < 0.4f && cardNumber > 2){
                     newSelectedCard = 2;
                 }
                 if(newSelectedCard != -1){
                     cardPos[newSelectedCard] = new Vector2(distanceBetweenCards * (newSelectedCard -1), posBelowPutUp);
-
                     if(mouseClickSt){
                         if(selectedCard == newSelectedCard){
                             selectedCard = -1;
@@ -85,7 +80,7 @@ public class InputScript : MonoBehaviour
 
 
         }else{
-            for (int i = 0; i < cardPos.Count; i++)
+            for (int i = 0; i < 3; i++)
             {
                 cardPos[i] = -distanceBelowToHideFromCamera * Vector2.up;
             }
@@ -100,7 +95,7 @@ public class InputScript : MonoBehaviour
 
 
 
-        for(int i = 0; i < p1cards.Count; i ++){
+        for(int i = 0; i < 3; i ++){
             p1cards[i].position = Vector3.Lerp(p1cards[i].position, cam.transform.rotation * new Vector3(cardPos[i].x, cardPos[i].y, distanceForwardToCamera) + cam.transform.position, 0.1f);
         }
 
@@ -113,7 +108,10 @@ public class InputScript : MonoBehaviour
         mouseClickSt = false;
     }
 
-
+    public void SetCard(){
+        Debug.Log("Set cards");
+        //Temp
+    }
 
     public void MouseMove(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
