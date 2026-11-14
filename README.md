@@ -1,2 +1,3 @@
-# unijam-2026
+# nijam-2026
+
 UNIJAM 2026
