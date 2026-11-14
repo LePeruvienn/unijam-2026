@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PlayedCard : MonoBehaviour
 {
@@ -25,7 +26,7 @@ public class PlayedCard : MonoBehaviour
 	private Vector3 _targetPosition = Vector3.zero;
 
 	private Card _model;
-
+	
 	protected void Update()
 	{
 		UpdatePosition();
@@ -121,5 +122,11 @@ public class PlayedCard : MonoBehaviour
 	public void SetIsRotated(bool value)
 	{
 		_isRotated = value;
+	}
+
+	// TODO : Animation de mort
+	public void Kill()
+	{
+		Destroy(gameObject);
 	}
 }
