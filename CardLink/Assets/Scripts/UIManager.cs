@@ -30,6 +30,10 @@ public class UIManager : MonoBehaviour
 	[SerializeField] private GameObject ChangeToP2;
 
 	[SerializeField] private GameObject[] Buttons;
+	
+	[SerializeField] private GameObject CardSelectionUI;
+	[SerializeField] private GameObject CardSelectionSelect;
+	[SerializeField] private GameObject CardSelectionPass;
 
 	// Unity Functions
 
@@ -179,4 +183,20 @@ public class UIManager : MonoBehaviour
 	{
 		LinkSelectionUI.SetActive(value);
 	}
+	
+	public void ShowCardSelectionUI(bool value = true, bool canPass = true)
+	{
+		CardSelectionUI.SetActive(value);
+		CardSelectionSelect.SetActive(value);
+
+		if (canPass && value)
+		{
+			CardSelectionPass.SetActive(true);
+		}
+		else
+		{
+			CardSelectionPass.SetActive(false);
+		}
+	}
+
 }
