@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] private InputScript inputScript;
 	[SerializeField] private UIManager uiManager;
 	[SerializeField] private HeadMovement headMovement;
+	[SerializeField] private CardEffectManager cardEffectManager;
 
 	[Header("Board Terrains")]
 	[SerializeField] private BoardTerrain p1BoardTerrain;
@@ -249,6 +250,8 @@ public class GameManager : MonoBehaviour
 			return;
 		}
 
+		uiManager.HideEverything();
+
 		ShowHand(false);
 		
 		Vector3 cardPosition = inputScript.GetCardPosition(cardIndex);
@@ -267,9 +270,10 @@ public class GameManager : MonoBehaviour
 		// Adding card to terrain
 		BoardTerrain terrain = GetPlayerBoardTerrain(_currentPlayer);
 
-		terrain.AddNewCard(cardModel, cardPosition);
+		PlayedCard playedCard = terrain.AddNewCard(cardModel, cardPosition);
 
-		EndTurn();
+		// Gestion des effet onPlay
+		cardEffectManager.HandleOnPlayEffects(playedCard, cardModel, EndTurn);
 	}
 
 	public void StartAttack()
@@ -394,5 +398,16 @@ public class GameManager : MonoBehaviour
 		// UI
 		uiManager.HideEverything();
 		uiManager.ShowStartNewTurnUI();
+	}
+
+	// Link function
+	void StartLink()
+	{
+		
+	}
+
+	void EndLink()
+	{
+
 	}
 }

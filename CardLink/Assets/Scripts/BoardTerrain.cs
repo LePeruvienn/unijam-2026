@@ -71,6 +71,9 @@ public class BoardTerrain : MonoBehaviour
 			Vector3 position =  new Vector3(x, 0f, 0f);
 
 			card.SetTargetPosition(position);
+
+			if (card.IsLinkSelected())
+				continue;
 			
 			if(clickedCard == card)
 			{
@@ -105,7 +108,7 @@ public class BoardTerrain : MonoBehaviour
 
 	// Public Functions
 
-	public void AddNewCard(Card card, Vector3 spawnPos)
+	public PlayedCard AddNewCard(Card card, Vector3 spawnPos)
 	{
 		if(card == null)
 		{
@@ -118,6 +121,8 @@ public class BoardTerrain : MonoBehaviour
 		played.SetIsRotated(_rotateCards);
 
 		playedCards.Add(played);
+
+		return played;
 	}
 
 	public bool DeleteFromModel(Card card)
@@ -232,6 +237,8 @@ public class BoardTerrain : MonoBehaviour
 			PlayedCard played = playedCards[i];
 			played.SetState(PlayedCard.State.Idle);
 		}
+
+		boardInteraction.ResetHoveredClicked();
 	}
 
 	public bool KillCard(PlayedCard target)
@@ -253,5 +260,10 @@ public class BoardTerrain : MonoBehaviour
 	public bool HaveCards()
 	{
 		return (playedCards.Count > 0);
+	}
+
+	public int GetCardCount()
+	{
+		return playedCards.Count;
 	}
 }

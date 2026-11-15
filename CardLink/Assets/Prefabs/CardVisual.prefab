@@ -154,7 +154,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8132802001561756188
 RectTransform:
   m_ObjectHideFlags: 0
@@ -935,6 +935,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2bfcc23087a9de809ce796f8dcbdd14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardVisual
+  frontFrace: {fileID: 2641690677517876362}
   label: {fileID: 8721316169379621530}
   desc: {fileID: 5955977773809568653}
   power: {fileID: 1498354225104437208}

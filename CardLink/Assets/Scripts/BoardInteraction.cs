@@ -94,4 +94,10 @@ public class BoardInteraction : MonoBehaviour
 	{
 		return _clickedPlayedCard;
 	}
+
+	public void ResetHoveredClicked()
+	{
+		_clickedPlayedCard = null;
+		_hoveredPlayedCard = null;
+	}
 }

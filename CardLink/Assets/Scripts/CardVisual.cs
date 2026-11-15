@@ -4,7 +4,12 @@ using TMPro;
 
 public class CardVisual : MonoBehaviour
 {
-	[Header("References")]
+	[Header("Faces")]
+	// [SerializeField] private GameObject backFace;
+	[SerializeField] private GameObject frontFrace;
+
+
+	[Header("Elements")]
 	[SerializeField] private TMP_Text label;
 	[SerializeField] private TMP_Text desc;
 	[SerializeField] private TMP_Text power;
@@ -33,6 +38,8 @@ public class CardVisual : MonoBehaviour
 	// NOTE:There is no desc in Card class
 	public void SetFromModel(Card model)
 	{
+		frontFrace.SetActive(true);
+
 		SetName(model.nom);
 		SetSprite(model.image);
 		SetPower(model.force);
