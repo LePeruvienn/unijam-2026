@@ -142,6 +142,21 @@ public class BoardTerrain : MonoBehaviour
 		return false;
 	}
 
+	public bool HaveCard(PlayedCard target)
+	{
+		for (int i = 0; i < playedCards.Count; ++i)
+		{
+			PlayedCard played = playedCards[i];
+
+			if (played == target)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public bool DeletePlayedCard(PlayedCard target)
 	{
 		for (int i = 0; i < playedCards.Count; ++i)

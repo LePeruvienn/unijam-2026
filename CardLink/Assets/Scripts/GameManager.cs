@@ -193,6 +193,37 @@ public class GameManager : MonoBehaviour
 		if(_p2PV > maxPV) _p2PV = maxPV;
 	}
 
+	// Problème si égalité ?
+	private void KillWithLinks(PlayedCard origin)
+	{
+		HashSet<PlayedCard> toKill = new HashSet<PlayedCard>();
+		Stack<PlayedCard> stack = new Stack<PlayedCard>();
+		stack.Push(origin);
+
+		while (stack.Count > 0)
+		{
+			PlayedCard card = stack.Pop();
+
+			if (card == null || !toKill.Add(card))
+				continue;
+
+			List<PlayedCard> links = card.GetLinkedCards();
+
+			for (int i = 0; i < links.Count; ++i)
+			{
+				stack.Push(links[i]);
+			}
+		}
+
+		foreach (PlayedCard card in toKill)
+		{
+			if (p1BoardTerrain.HaveCard(card))
+				p1BoardTerrain.KillCard(card);
+			else if (p2BoardTerrain.HaveCard(card))
+				p2BoardTerrain.KillCard(card);
+		}
+	}
+
 	// Public mehods
 
 	public void StartNewTurn()
@@ -372,14 +403,16 @@ public class GameManager : MonoBehaviour
 
 		Debug.Log($"Fight Start : {attackerCard.nom} vs {defenderCard.nom}");
 
+		// Problème si égalité + LINK?
+		// => il m'as pas l'air d'avoir de bug
 		if (attackerCard.force >= defenderCard.force)
 		{
-			defenderTerrain.KillCard(defenderPlayedCard);
+			KillWithLinks(defenderPlayedCard);
 			Debug.Log($"DIED {defenderCard.nom} !");
 		}
 		if(attackerCard.force <= defenderCard.force)
 		{
-			attackerTerrain.KillCard(attackerPlayedCard);
+			KillWithLinks(attackerPlayedCard);
 			Debug.Log($"DIED {attackerCard.nom} !");
 		}
 
