@@ -266,6 +266,7 @@ public class BoardTerrain : MonoBehaviour
 
 		if (sucess)
 		{
+			SoundEffects.PlaySound(SoundType.DEATHCARD);
 			GameObject effInst = Instantiate(killEffectPrefab);
 			effInst.transform.position = target.transform.position;
 			Destroy(effInst, 5f);
