@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Card
   nom: "Drogu\xE9"
   force: 3
-  image: {fileID: 0}
+  image: {fileID: -6823372314159166088, guid: 0d676407016ef01bea45ac0357925dc4, type: 3}
   aVoyance: 0
   aCupidon: 0
   aAmoureux: 0

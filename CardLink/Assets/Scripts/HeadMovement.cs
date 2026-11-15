@@ -13,14 +13,31 @@ public class HeadMovement : MonoBehaviour
 
     Camera cam;
 
+    private bool _isAtPlayer2 = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         cam = Camera.main;
         transform.position = p1HeadPos;
         transform.rotation = Quaternion.Euler(p1HeadRot);
+        _isAtPlayer2 = false; // De base on est à P1
     }
+
+	// NOTE: On comprend pas ce que veut dire le nom de la variable ????
+	//       ça devrait être un truc du genre :
+	//       - toPlayer1 (on va au P1 si true et au P2 du coup si false)
+	//       - un enum genre PlayerID (P1 et P2)
+	//       Sinon la on regarde le code on comprend pas
     public void ChangeHeadPos(bool player1to2){
+
+        if (player1to2 == _isAtPlayer2)
+        {
+            return;
+        }
+
+        _isAtPlayer2 = player1to2;
+
         StartCoroutine(ChangeHeadPosCoroutine(player1to2));
     }
 

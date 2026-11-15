@@ -39,6 +39,9 @@ public class BoardTerrain : MonoBehaviour
 		{
 			PlayedCard card = playedCards[i];
 
+			if (card.GetState() == PlayedCard.State.Attacking)
+				continue;
+
 			card.SetState(PlayedCard.State.Idle);
 
 			float x = GetCardPosition(i);
@@ -68,6 +71,9 @@ public class BoardTerrain : MonoBehaviour
 			Vector3 position =  new Vector3(x, 0f, 0f);
 
 			card.SetTargetPosition(position);
+
+			if (card.IsLinkSelected())
+				continue;
 			
 			if(clickedCard == card)
 			{
@@ -102,12 +108,21 @@ public class BoardTerrain : MonoBehaviour
 
 	// Public Functions
 
-	public void AddNewCard(Card card, Vector3 spawnPos)
+	public PlayedCard AddNewCard(Card card, Vector3 spawnPos)
 	{
-		PlayedCard played = Instantiate(playedCardPrefab, spawnPos, Quaternion.identity, this.transform);
+		if(card == null)
+		{
+			Debug.LogWarning("Added a card with a null model");
+		}
+
+		PlayedCard played = Instantiate(playedCardPrefab, spawnPos, Quaternion.identity, transform);
+
 		played.SetModel(card);
+		played.SetIsRotated(_rotateCards);
 
 		playedCards.Add(played);
+
+		return played;
 	}
 
 	public bool DeleteFromModel(Card card)
@@ -124,6 +139,21 @@ public class BoardTerrain : MonoBehaviour
 		}
 
 		Debug.LogError("Failed to delete card from board terrain");
+		return false;
+	}
+
+	public bool HaveCard(PlayedCard target)
+	{
+		for (int i = 0; i < playedCards.Count; ++i)
+		{
+			PlayedCard played = playedCards[i];
+
+			if (played == target)
+			{
+				return true;
+			}
+		}
+
 		return false;
 	}
 
@@ -181,19 +211,36 @@ public class BoardTerrain : MonoBehaviour
 		return null;
 	}
 
+	public PlayedCard GetAttackingCard()
+	{
+		for (int i = 0; i < playedCards.Count; ++i)
+		{
+			PlayedCard played = playedCards[i];
+
+			if (played.GetState() == PlayedCard.State.Attacking)
+			{
+				return played;
+			}
+		}
+
+		return null;
+	}
+
 	public bool ApplySelection()
 	{
 		PlayedCard selected = GetSelectedCard();
 
 		if (selected != null)
 		{
-			selected.SetTargetPosition(attackSlot.localPosition);
+			Vector3 targetPosition = attackSlot.localPosition;
+
+			selected.SetTargetPosition(targetPosition);
 			selected.SetState(PlayedCard.State.Attacking);
 			return true;
 		}
 		else
 		{
-			Debug.LogError("Couldnt apply selection");
+			Debug.LogWarning("Couldnt apply selection");
 			return false;
 		}
 	}
@@ -205,6 +252,8 @@ public class BoardTerrain : MonoBehaviour
 			PlayedCard played = playedCards[i];
 			played.SetState(PlayedCard.State.Idle);
 		}
+
+		boardInteraction.ResetHoveredClicked();
 	}
 
 	public bool KillCard(PlayedCard target)
@@ -221,5 +270,15 @@ public class BoardTerrain : MonoBehaviour
 			Debug.LogError("Failed to kill card");
 			return false;
 		}
+	}
+
+	public bool HaveCards()
+	{
+		return (playedCards.Count > 0);
+	}
+
+	public int GetCardCount()
+	{
+		return playedCards.Count;
 	}
 }

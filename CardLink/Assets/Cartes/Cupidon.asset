@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Card
   nom: Cupidon
   force: 2
-  image: {fileID: 0}
+  image: {fileID: 3331232167538127031, guid: bedbcb7ded6eeb63fb81589aa98c7224, type: 3}
   aVoyance: 0
   aCupidon: 1
   aAmoureux: 0
