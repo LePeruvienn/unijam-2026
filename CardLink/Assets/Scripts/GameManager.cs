@@ -11,13 +11,27 @@ public class GameManager : MonoBehaviour
 	[SerializeField] private BoardTerrain p1BoardTerrain;
 	[SerializeField] private BoardTerrain p2BoardTerrain;
 
+	[Header("Deck")]
+	[SerializeField] private DeckData deckData;
+
 	// The ID of the player who is playing this turn
 	private PlayerId _currentPlayer = PlayerId.P1;
 
+	// Pioches
+	private Deck p1Deck = null;
+	private Deck p2Deck = null;
+
+	// When resolving duels
 	private Card _attackerCard = null;
 	private Card _defenderCard = null;
 
 	// Unity Functions
+
+	protected void Awake()
+	{
+		p1Deck = new Deck(deckData);
+		p2Deck = new Deck(deckData);
+	}
 
 	protected void Start()
 	{
@@ -103,6 +117,29 @@ public class GameManager : MonoBehaviour
 		terrain.SetIsInteractible(true);
 	}
 
+	private Deck GetPlayerDeck(PlayerId player)
+	{
+		if (player == PlayerId.P1)
+			return p1Deck;
+		else
+			return p2Deck;
+	}
+
+	private void DrawCardToHand(Deck deck)
+	{
+		while (inputScript.GetCardCount() < 3)
+		{
+			Card card = deck.DrawCard();
+
+			if (card == null)
+			{
+				return;
+			}
+
+			inputScript.AddCard(card);
+		}
+	}
+
 	// Public mehods
 
 	public void StartNewTurn()
@@ -122,15 +159,24 @@ public class GameManager : MonoBehaviour
 		// UI Show
 		uiManager.HideEverything();
 		uiManager.ShowChooseActionUI();
+
+		// Deck
+		Deck deck = GetPlayerDeck(_currentPlayer);
 	}
 
 	public void StartPlayCard()
 	{
 		DisableAllBoardInteractions();
 		
-		BoardTerrain terrain = GetPlayerBoardTerrain(_currentPlayer);
+		Deck deck = GetPlayerDeck(_currentPlayer);
 
-		// TODO: Check if we can play a card !!!
+		DrawCardToHand(deck);
+
+		if(inputScript.GetCardCount() <= 0)
+		{
+			Debug.LogWarning("Cannot Play a Card no card in hand !!");
+			return;
+		}
 
 		ShowHand(true);
 
@@ -149,9 +195,13 @@ public class GameManager : MonoBehaviour
 		}
 
 		ShowHand(false);
+		
+		Vector3 cardPosition = inputScript.GetCardPosition(cardIndex);
+
+		// Remove card from hand
+		inputScript.RemoveCard(cardIndex);
 
 		// Adding card to terrain
-		Vector3 cardPosition = inputScript.GetCardPosition(cardIndex);
 		BoardTerrain terrain = GetPlayerBoardTerrain(_currentPlayer);
 
 		terrain.AddNewCard(null, cardPosition);

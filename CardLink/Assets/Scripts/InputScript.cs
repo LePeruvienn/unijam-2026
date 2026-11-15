@@ -7,13 +7,16 @@ using UnityEngine.InputSystem;
 // Je vois ce script comme un Vue qui affiche des cartes, il ne devrais pas avoir d'autres resposabilité
 public class InputScript : MonoBehaviour
 {
+	[SerializeField] private GameObject cardVisualPrefab;
+	[SerializeField] private float rotationCorrection = 90f;
+	
     public bool persoPlay;
     public bool player1;
     [SerializeField] int cardNumber; //temp
 
 	// WARNING: C'est pas les cartes de J1 mais les carte acutellement afficher !!!
 	// Rien à voir avec J1 ou J2!!!
-    [SerializeField] Transform[] p1cards; 
+    [SerializeField] List<Transform> p1cards = new List<Transform>();
 
     Camera cam;
 
@@ -23,7 +26,7 @@ public class InputScript : MonoBehaviour
     Vector2 mousePosScreen; //position de la souris, en pixels
     Vector2 mousePos; //position de la souris, entre (-x et x) et (0 et 1)
 
-    Vector2[] cardPos;
+    List<Vector2> cardPos = new List<Vector2>();
     int selectedCard;
     
     [SerializeField] float distanceForwardToCamera;
@@ -47,34 +50,39 @@ public class InputScript : MonoBehaviour
         mousePosScreen = Vector2.zero;
         selectedCard = -1;
 
-        cardPos = new Vector2[3];
-        for (int i = 0; i < 3; i++)
-        {
-            cardPos[i] = Vector2.zero;
-        }
+        // Synchronise la taille des positions selon la liste initiale
+        UpdateCardPosListSize();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Sécurité pour garder la liste des positions synchronisée si la main change
+        if (cardPos.Count != p1cards.Count)
+        {
+            UpdateCardPosListSize();
+        }
+
+        int currentCount = p1cards.Count;
+
         if(persoPlay){
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < currentCount; i++)
             {
-                cardPos[i] = new Vector2(distanceBetweenCards * (i -1), posBelowPutDown);
+                cardPos[i] = new Vector2(distanceBetweenCards * (i - (currentCount - 1) / 2f), posBelowPutDown);
             }
             if(mousePos.y <= screenProportionToPlay){
                 int newSelectedCard = -1;
-                if(mousePos.x > -0.4f && mousePos.x < -0.15f && cardNumber > 0){
+                if(mousePos.x > -0.4f && mousePos.x < -0.15f && currentCount > 0){
                     newSelectedCard = 0;
                 }
-                if(mousePos.x > -0.15f && mousePos.x < 0.15f && cardNumber > 1){
+                if(mousePos.x > -0.15f && mousePos.x < 0.15f && currentCount > 1){
                     newSelectedCard = 1;
                 }
-                if(mousePos.x > 0.15f && mousePos.x < 0.4f && cardNumber > 2){
+                if(mousePos.x > 0.15f && mousePos.x < 0.4f && currentCount > 2){
                     newSelectedCard = 2;
                 }
-                if(newSelectedCard != -1){
-                    cardPos[newSelectedCard] = new Vector2(distanceBetweenCards * (newSelectedCard -1), posBelowPutUp);
+                if(newSelectedCard != -1 && newSelectedCard < currentCount){
+                    cardPos[newSelectedCard] = new Vector2(distanceBetweenCards * (newSelectedCard - (currentCount - 1) / 2f), posBelowPutUp);
                     if(mouseClickSt){
                         if(selectedCard == newSelectedCard){
                             selectedCard = -1;
@@ -84,13 +92,13 @@ public class InputScript : MonoBehaviour
                     }
                 }
             }
-            if(selectedCard != -1){
-                cardPos[selectedCard] = new Vector2(distanceBetweenCards * (selectedCard -1), posBelowPutSelected);
+            if(selectedCard != -1 && selectedCard < currentCount){
+                cardPos[selectedCard] = new Vector2(distanceBetweenCards * (selectedCard - (currentCount - 1) / 2f), posBelowPutSelected);
             }
 
 
         }else{
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < currentCount; i++)
             {
                 cardPos[i] = -distanceBelowToHideFromCamera * Vector2.up;
             }
@@ -105,8 +113,19 @@ public class InputScript : MonoBehaviour
 
 
 
-        for(int i = 0; i < 3; i ++){
-            p1cards[i].position = Vector3.Lerp(p1cards[i].position, cam.transform.rotation * new Vector3(cardPos[i].x, cardPos[i].y, distanceForwardToCamera) + cam.transform.position, 0.1f);
+        for(int i = 0; i < p1cards.Count; i ++){
+            if (p1cards[i] != null)
+            {
+                p1cards[i].position = Vector3.Lerp(p1cards[i].position, cam.transform.rotation * new Vector3(cardPos[i].x, cardPos[i].y, distanceForwardToCamera) + cam.transform.position, 0.1f);
+
+				// AElazealdsqlkdjq c'est hciant
+				Quaternion baseRotation = cam.transform.rotation;
+				Quaternion flatCorrection = Quaternion.Euler(rotationCorrection, 0f, 0f);
+				// Quaternion playerFlip = player1 ? Quaternion.identity : Quaternion.Euler(0f, 180f, 0f);
+				Quaternion playerFlip = Quaternion.identity;
+				Quaternion targetRotation = baseRotation * playerFlip * flatCorrection;
+				p1cards[i].rotation = Quaternion.Slerp(p1cards[i].rotation, targetRotation, 0.1f);
+            }
         }
 
 
@@ -118,10 +137,22 @@ public class InputScript : MonoBehaviour
         mouseClickSt = false;
     }
 
-    public void SetCard(){
+    // Petite méthode utilitaire pour garder les tailles de tableaux alignées proprement
+    void UpdateCardPosListSize()
+    {
+        cardPos.Clear();
+        for (int i = 0; i < p1cards.Count; i++)
+        {
+            cardPos.Add(Vector2.zero);
+        }
+        cardNumber = p1cards.Count; // Garde ton champ temp à jour
+    }
+
+    public void SetCards(List<Transform> newCards){
         selectedCard = -1;
+        p1cards = new List<Transform>(newCards);
+        UpdateCardPosListSize();
         Debug.Log("Set cards");
-        //Temp
     }
 
     public void PlayCard(UnityEngine.InputSystem.InputAction.CallbackContext context){
@@ -162,28 +193,73 @@ public class InputScript : MonoBehaviour
         return (player1) ? p1BoardTerrain : p2BoardTerrain;
     }
 
-	public int GetSelectedCard()
-	{
-		return selectedCard;
-	}
+    public int GetSelectedCard()
+    {
+        return selectedCard;
+    }
 
-	public Vector3 GetCardPosition(int index)
+    public Vector3 GetCardPosition(int index)
+    {
+        if (index < 0 || index >= p1cards.Count)
+        {
+            Debug.LogError("FIIIN ... Frérot tu es cringe");
+            return Vector3.zero;
+        }
+
+        return p1cards[index].position;
+    }
+
+	public void AddCard(Card cardModel)
 	{
-		if (index < 0 || index > p1cards.Length)
+		if (cardModel == null || cardVisualPrefab == null)
 		{
-			Debug.LogError("FIIIN ... Frérot tu es cringe");
-			return Vector3.zero;
+			Debug.LogError("Card Visual Prefab or model is null");
+			return;
 		}
 
-		return p1cards[index].position;
+		GameObject newCardObj = Instantiate(cardVisualPrefab, transform);
+		
+		CardVisual cardVisual = newCardObj.GetComponent<CardVisual>();
+		if (cardVisual != null)
+		{
+			cardVisual.SetFromModel(cardModel);
+		}
+
+		p1cards.Add(newCardObj.transform);
+		UpdateCardPosListSize();
 	}
 
-	public void AddCard()
-	{
-		// TODO
-	}
 	public void RemoveCard(int index)
 	{
-		// TODO
+		if (index >= 0 && index < p1cards.Count)
+		{
+			if (p1cards[index] != null)
+			{
+				Destroy(p1cards[index].gameObject);
+			}
+
+			p1cards.RemoveAt(index);
+			
+			if (selectedCard == index)
+			{
+				selectedCard = -1;
+			}
+			else if (selectedCard > index)
+			{
+				selectedCard--;
+			}
+
+			UpdateCardPosListSize();
+		}
+		else
+		{
+			Debug.LogWarning("Index invalide pour supprimer la carte.");
+		}
+	}
+
+	public int GetCardCount()
+	{
+		return p1cards.Count;
 	}
 }
+

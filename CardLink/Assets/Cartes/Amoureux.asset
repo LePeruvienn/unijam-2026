@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Card
   nom: Amoureux
   force: 4
-  image: {fileID: 0}
+  image: {fileID: 8615793150609643985, guid: 8aaeb7914d0f0d34181b265709d92e7c, type: 3}
   aVoyance: 0
   aCupidon: 0
   aAmoureux: 1

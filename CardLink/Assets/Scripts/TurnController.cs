@@ -60,7 +60,7 @@ public class TurnController : MonoBehaviour
     {
         SetPhase(TurnPhase.Play, CurrentPlayer);
         
-        inputScript.SetCard();
+        // inputScript.SetCard(); OLD REMOVED
         inputScript.persoPlay = true;
     }
 
