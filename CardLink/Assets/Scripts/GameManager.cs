@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
 	private Deck _p1Deck = null;
 	private Deck _p2Deck = null;
 
-	// Mains
+	// Mains (Gérées ici dans le GameManager)
 	private List<Card> _p1Hand = new List<Card>();
 	private List<Card> _p2Hand = new List<Card>();
 
@@ -135,9 +135,17 @@ public class GameManager : MonoBehaviour
 			return _p2Deck;
 	}
 
+	// Récupérer la main du joueur actuel
+	private List<Card> GetCurrentPlayerHand()
+	{
+		return (_currentPlayer == PlayerId.P1) ? _p1Hand : _p2Hand;
+	}
+
 	private void DrawCardToHand(Deck deck)
 	{
-		while (inputScript.GetCardCount() < 3)
+		List<Card> currentHand = GetCurrentPlayerHand();
+
+		while (currentHand.Count < 3)
 		{
 			Card card = deck.DrawCard();
 
@@ -146,7 +154,7 @@ public class GameManager : MonoBehaviour
 				return;
 			}
 
-			inputScript.AddCard(card);
+			currentHand.Add(card);
 		}
 	}
 
@@ -216,6 +224,9 @@ public class GameManager : MonoBehaviour
 
 		DrawCardToHand(deck);
 
+		// Transmettre la main complète du joueur actuel à la vue (InputScript)
+		inputScript.SetCards(GetCurrentPlayerHand());
+
 		if(inputScript.GetCardCount() <= 0)
 		{
 			Debug.LogWarning("Cannot Play a Card no card in hand !!");
@@ -243,7 +254,14 @@ public class GameManager : MonoBehaviour
 		Vector3 cardPosition = inputScript.GetCardPosition(cardIndex);
 		Card cardModel = inputScript.GetCardModel(cardIndex);
 
-		// Remove card from hand
+		// Remove card from GameManager hand data
+		List<Card> currentHand = GetCurrentPlayerHand();
+		if (cardIndex >= 0 && cardIndex < currentHand.Count)
+		{
+			currentHand.RemoveAt(cardIndex);
+		}
+
+		// Remove card from visual InputScript
 		inputScript.RemoveCard(cardIndex);
 
 		// Adding card to terrain
@@ -343,7 +361,7 @@ public class GameManager : MonoBehaviour
 			Debug.LogError("Failed to set make resolution, attacking PlayedCard null");
 
 		Card attackerCard = attackerPlayedCard.GetModel();
-		Card defenderCard =	defenderPlayedCard.GetModel();
+		Card defenderCard =  defenderPlayedCard.GetModel();
 
 		if (attackerCard == null || defenderCard == null)
 			Debug.LogError("Failed to set make resolution, attacking Card model null");
