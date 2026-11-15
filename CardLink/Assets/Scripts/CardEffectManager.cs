@@ -23,7 +23,7 @@ public class CardEffectManager : MonoBehaviour
 		// 1. Effet Amoureux
 		if (cardModel.aAmoureux)
 		{
-			Debug.Log($"Effet déclenché : Amoureux pour {cardModel.nom}");
+			Debug.Log($"Effet declenche : Amoureux pour {cardModel.nom}");
 			carLinkder.StartSingleTargetLink(playedCard, true, true, () =>
 			{
 				onEffectComplete?.Invoke();
@@ -34,7 +34,7 @@ public class CardEffectManager : MonoBehaviour
 		// 2. Effet Cupidon
 		if (cardModel.aCupidon)
 		{
-			Debug.Log($"Effet déclenché : Cupidon pour {cardModel.nom}");
+			Debug.Log($"Effet declenche : Cupidon pour {cardModel.nom}");
 			carLinkder.StartDoubleTargetLink(true, true, () =>
 			{
 				onEffectComplete?.Invoke();

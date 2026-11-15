@@ -220,6 +220,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 916538439}
     - target: {fileID: 4617646181903978162, guid: 879706c2f00aeaa40b20fd75f95b3dcc, type: 3}
+      propertyPath: headMovement
+      value: 
+      objectReference: {fileID: 773900167}
+    - target: {fileID: 4617646181903978162, guid: 879706c2f00aeaa40b20fd75f95b3dcc, type: 3}
       propertyPath: p1BoardTerrain
       value: 
       objectReference: {fileID: 916538439}
@@ -1994,11 +1998,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26fe5efcc21b32043851f6f73c54de28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeadMovement
-  p1HeadPos: {x: 0, y: 10, z: -16}
-  p1HeadRot: {x: 30, y: 0, z: 0}
-  p2HeadPos: {x: 0, y: 10, z: 16}
-  p2HeadRot: {x: 30, y: -180, z: 0}
-  intermediaryHeadPos: {x: 10, y: 5, z: 0}
+  p1HeadPos: {x: 0, y: 12, z: -4}
+  p1HeadRot: {x: 76, y: 0, z: 0}
+  p2HeadPos: {x: 0, y: 12, z: 4}
+  p2HeadRot: {x: 76, y: -180, z: 0}
+  intermediaryHeadPos: {x: 5, y: 8, z: 0}
+  p1HeadPosCard: {x: 0, y: 12.5, z: -13.5}
+  p1HeadRotCard: {x: 60, y: 0, z: 0}
+  p2HeadPosCard: {x: 0, y: 12.5, z: 13.5}
+  p2HeadRotCard: {x: 60, y: -180, z: 0}
+  mustLook: 0
 --- !u!1 &807782799
 GameObject:
   m_ObjectHideFlags: 0
@@ -2869,19 +2878,7 @@ MonoBehaviour:
     m_ActionId: 3c7022bf-7922-4f7c-a998-c437916075ad
     m_ActionName: 'UI/Click[/Mouse/leftButton]'
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 370855959}
-        m_TargetAssemblyTypeName: InputScript, Assembly-CSharp
-        m_MethodName: PlayCard
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 44b200b1-1557-4083-816c-b22cbdf77ddf
     m_ActionName: 'UI/RightClick[/Mouse/rightButton]'
   - m_PersistentCalls:
@@ -3329,7 +3326,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5738724565262423793, guid: a0245db60bc9c52dfbddbde0de393808, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5738724565262423793, guid: a0245db60bc9c52dfbddbde0de393808, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4464,7 +4461,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5738724565262423793, guid: a0245db60bc9c52dfbddbde0de393808, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 5738724565262423793, guid: a0245db60bc9c52dfbddbde0de393808, type: 3}
       propertyPath: m_LocalRotation.w
