@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Card
   nom: Voyante
   force: 4
-  image: {fileID: 0}
+  image: {fileID: 7132553319431534796, guid: f05983c1430d7c70ab8379026cf53206, type: 3}
   aVoyance: 1
   aCupidon: 0
   aAmoureux: 0

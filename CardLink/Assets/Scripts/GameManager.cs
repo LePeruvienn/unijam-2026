@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,8 +19,12 @@ public class GameManager : MonoBehaviour
 	private PlayerId _currentPlayer = PlayerId.P1;
 
 	// Pioches
-	private Deck p1Deck = null;
-	private Deck p2Deck = null;
+	private Deck _p1Deck = null;
+	private Deck _p2Deck = null;
+
+	// Mains
+	private List<Card> _p1Hand = new List<Card>();
+	private List<Card> _p2Hand = new List<Card>();
 
 	// When resolving duels
 	private Card _attackerCard = null;
@@ -29,8 +34,8 @@ public class GameManager : MonoBehaviour
 
 	protected void Awake()
 	{
-		p1Deck = new Deck(deckData);
-		p2Deck = new Deck(deckData);
+		_p1Deck = new Deck(deckData);
+		_p2Deck = new Deck(deckData);
 	}
 
 	protected void Start()
@@ -120,9 +125,9 @@ public class GameManager : MonoBehaviour
 	private Deck GetPlayerDeck(PlayerId player)
 	{
 		if (player == PlayerId.P1)
-			return p1Deck;
+			return _p1Deck;
 		else
-			return p2Deck;
+			return _p2Deck;
 	}
 
 	private void DrawCardToHand(Deck deck)

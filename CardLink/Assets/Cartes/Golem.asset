@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Card
   nom: Golem
   force: 8
-  image: {fileID: 0}
+  image: {fileID: 8821016199925446121, guid: 9c6266f035e7791cbaf2893ac2423e64, type: 3}
   aVoyance: 0
   aCupidon: 0
   aAmoureux: 0
