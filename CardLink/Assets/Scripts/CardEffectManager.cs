@@ -4,6 +4,7 @@ using System;
 public class CardEffectManager : MonoBehaviour
 {
 	[SerializeField] private CardLinker carLinkder;
+	[SerializeField] private CardSelector cardSelector;
 
 	// Effects Handlers
 
@@ -33,6 +34,30 @@ public class CardEffectManager : MonoBehaviour
 			Debug.Log($"Effet declenche : Cupidon pour {cardModel.nom}");
 			carLinkder.StartDoubleTargetLink(true, true, () =>
 			{
+				onEffectComplete?.Invoke();
+			});
+			return;
+		}
+
+		// 3. Effet Sorcière
+		if(cardModel.aBriseLien)
+		{
+			Debug.Log($"Effet déclenché : Delete links pour {cardModel.nom}");
+			cardSelector.StartSelection((PlayedCard selectedCard) => 
+			{
+ 				selectedCard.RemoveAllLinks();
+				onEffectComplete?.Invoke();
+			});
+			return;
+		}
+
+		// 4. Effet Voyante
+		if(cardModel.aVoyance)
+		{
+			Debug.Log($"Effet déclenché : Voyance pour {cardModel.nom}");
+			cardSelector.StartSelection((PlayedCard selectedCard) => 
+			{
+				Debug.Log($"Voyante regarde carte : {selectedCard}");
 				onEffectComplete?.Invoke();
 			});
 			return;
