@@ -124,6 +124,8 @@ public class BoardTerrain : MonoBehaviour
 
 		playedCards.Add(played);
 
+		played.CreationCardEffect();
+
 		return played;
 	}
 

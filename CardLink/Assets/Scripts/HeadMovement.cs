@@ -35,6 +35,8 @@ public class HeadMovement : MonoBehaviour
 
     private bool _isAtPlayer2 = false;
 
+    float tremblVal;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -46,6 +48,7 @@ public class HeadMovement : MonoBehaviour
         rotToReallyBe = p1HeadRot;
         _isAtPlayer2 = false; // De base on est a P1
         isLooking = 1;
+        tremblVal = 0f;
     }
 
 	// NOTE: On comprend pas ce que veut dire le nom de la variable ????
@@ -122,8 +125,18 @@ public class HeadMovement : MonoBehaviour
             posToReallyBe = GetHeadOriPos(false);
             rotToReallyBe = GetHeadOriRot(false);
         }
-        transform.position = posToReallyBe;
+        transform.position = posToReallyBe + tremblVal * Vector3.up;
         transform.rotation = Quaternion.Euler(rotToReallyBe);
+    }
+
+    public void Shake(){
+        StartCoroutine(ShakeCoroutine());
+    }
+
+    IEnumerator ShakeCoroutine(){
+        tremblVal = -0.2f;
+        yield return new WaitForSeconds(0.05f);
+        tremblVal = 0f;
     }
 
 }

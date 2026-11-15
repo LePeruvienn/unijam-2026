@@ -403,6 +403,8 @@ public class GameManager : MonoBehaviour
 
 		Debug.Log($"Fight Start : {attackerCard.nom} vs {defenderCard.nom}");
 
+		headMovement.Shake();
+
 		// Probleme si egalite + LINK?
 		// => il m'as pas l'air d'avoir de bug
 		if (attackerCard.force >= defenderCard.force)
