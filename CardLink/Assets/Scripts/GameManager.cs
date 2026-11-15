@@ -176,11 +176,13 @@ public class GameManager : MonoBehaviour
 		if(_p1PV <= 0)
 		{
 			Debug.Log("P1 DEAD !!");
+			uiManager.ShowGameOver(PlayerId.P2);
 			_p1PV = 0;
 		}
 		else if(_p2PV <= 0)
 		{
 			Debug.Log("P2 DEAD !!");
+			uiManager.ShowGameOver(PlayerId.P1);
 			_p2PV = 0;
 		}
 		healthBar1.currentHealth = _p1PV;

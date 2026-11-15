@@ -128,8 +128,6 @@ public class UIManager : MonoBehaviour
 	public void ShowGameOver(PlayerId winner)
 	{
 		HideEverything();
-		PV1Panel.SetActive(false);
-		PV2Panel.SetActive(false);
 		P1Turn.SetActive(false);
 		P2Turn.SetActive(false);
 		if (winner == PlayerId.P1)

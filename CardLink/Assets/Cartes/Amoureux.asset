@@ -15,6 +15,7 @@ MonoBehaviour:
   nom: Amoureux
   force: 4
   image: {fileID: 8615793150609643985, guid: 8aaeb7914d0f0d34181b265709d92e7c, type: 3}
+  description: Create a link between itself and a card you select
   aVoyance: 0
   aCupidon: 0
   aAmoureux: 1

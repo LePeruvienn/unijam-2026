@@ -75,6 +75,7 @@ MonoBehaviour:
   selectPosition: {x: 0, y: 0, z: 1}
   animationSpeed: 20
   creationEffectPrefab: {fileID: 2549021747636386319, guid: 42675c025c5c653478d0fd4d06b1f8de, type: 3}
+  description: {fileID: 0}
 --- !u!1 &8294766279239958654
 GameObject:
   m_ObjectHideFlags: 0

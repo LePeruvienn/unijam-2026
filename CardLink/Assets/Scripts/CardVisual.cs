@@ -43,6 +43,7 @@ public class CardVisual : MonoBehaviour
 		SetName(model.nom);
 		SetSprite(model.image);
 		SetPower(model.force);
+		SetDesc(model.description);
 	}
 }
 
