@@ -231,6 +231,11 @@ MonoBehaviour:
   p2HeadPos: {x: 0, y: 10, z: 16}
   p2HeadRot: {x: 30, y: -180, z: 0}
   intermediaryHeadPos: {x: 10, y: 5, z: 0}
+  p1HeadPosCard: {x: 0, y: 0, z: 0}
+  p1HeadRotCard: {x: 0, y: 0, z: 0}
+  p2HeadPosCard: {x: 0, y: 0, z: 0}
+  p2HeadRotCard: {x: 0, y: 0, z: 0}
+  mustLook: 0
 --- !u!81 &51881435
 AudioListener:
   m_ObjectHideFlags: 0

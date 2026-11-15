@@ -148,7 +148,7 @@ public class PlayedCard : MonoBehaviour
 				targetCard._linkedCards.Add(this);
 			}
 
-			Debug.Log($"{_model.nom} est lié à {targetCard.GetModel().nom}");
+			Debug.Log($"{_model.nom} est lie a {targetCard.GetModel().nom}");
 		}
 	}
 
