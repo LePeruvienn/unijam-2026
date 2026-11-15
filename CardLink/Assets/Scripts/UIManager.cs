@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviour
 
 	[SerializeField] private GameObject LinkSelectionUI;
 
+	[SerializeField] private GameObject CardSelectionUI;
+
 	// Unity Functions
 
 	protected void Awake()
@@ -23,6 +25,7 @@ public class UIManager : MonoBehaviour
 		    PlaySelectionUI   == null ||
 		    AttackSelectionUI == null ||
 		    LinkSelectionUI == null ||
+		    CardSelectionUI == null ||
 		    DefendSelectionUI == null)
 		{
 			Debug.LogError("UIManager: One or more UI references are missing!", this);
@@ -71,5 +74,10 @@ public class UIManager : MonoBehaviour
 	public void ShowLinkSelectionUI(bool value = true)
 	{
 		LinkSelectionUI.SetActive(value);
+	}
+
+	public void ShowCardSelectionUI(bool value = true)
+	{
+		CardSelectionUI.SetActive(value);
 	}
 }

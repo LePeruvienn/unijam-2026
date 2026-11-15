@@ -179,12 +179,16 @@ public class PlayedCard : MonoBehaviour
 	// TODO : Animation de mort
 	public void Kill()
 	{
+		RemoveAllLinks();
+		Destroy(gameObject);
+	}
+
+	public void RemoveAllLinks()
+	{
 		// MODIFIE LINKEDCARDS PENDANT LA BOUCLE
 		for (int i = _linkedCards.Count - 1; i >= 0; --i)
 		{
 			RemoveLink(_linkedCards[i]);
 		}
-
-		Destroy(gameObject);
 	}
 }
