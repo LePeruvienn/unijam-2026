@@ -160,7 +160,7 @@ public class UIManager : MonoBehaviour
 
 	public void Restart()
 	{
-		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		SceneManager.LoadScene("menu");
 	}
 
 	public void ShowStartNewTurnUI(bool value = true)
