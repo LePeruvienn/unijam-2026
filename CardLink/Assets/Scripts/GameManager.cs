@@ -235,6 +235,8 @@ public class GameManager : MonoBehaviour
 		p2BoardTerrain.SetAllCardsToIdle();
 
 		_currentPlayer = GetNextPlayer();
+ 	
+		uiManager.ChangingTo(_currentPlayer);
 
 		SetCameraTo(_currentPlayer);
 
@@ -345,6 +347,8 @@ public class GameManager : MonoBehaviour
 		DisableAllBoardInteractions();
 
 		PlayerId oppenent = GetNextPlayer();
+
+		uiManager.ChangingTo(oppenent);
 
 		BoardTerrain terrain = GetPlayerBoardTerrain(oppenent);
 

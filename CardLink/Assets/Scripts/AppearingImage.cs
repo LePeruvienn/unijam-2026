@@ -7,43 +7,58 @@ public class AppearingImage : MonoBehaviour
     public float speed = 1;
     public Image image;
     [SerializeField] private float duration;
+    public float alp;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     { 
+        alp = image.color.a;
         image.enabled=false;
-        StartCoroutine(ImageFadeIn()); 
-       
+        StartCoroutine(ImageFadeInAndOut()); 
+     
         
-
     }
     
-
-    // Update is called once per frame
-    void Update()
+    
+    IEnumerator ImageFadeInAndOut()
+    {
+        image.color= new Color(image.color.r, image.color.g, image.color.b, 0);
+        image.enabled = true;
+       //float alpha = image.color.a;
+       alp = image.color.a;
+        while (alp < 1 )
+        {
+            alp+=Time.deltaTime*speed;
+            image.color= new Color(image.color.r, image.color.g, image.color.b, alp);
+            yield return null;
+            
+        }
+        yield return new WaitForSeconds(duration);
+        
+        while (alp > 0 )
+        {
+            alp-=Time.deltaTime*speed;
+            image.color= new Color(image.color.r, image.color.g, image.color.b, alp);
+            yield return null;
+            
+        }
+        Destroy(gameObject);
+        
+    }
+    IEnumerator ImageFadeOut()
     {
         
+        while (alp > 0 )
+        {
+            alp-=Time.deltaTime*speed;
+            image.color= new Color(image.color.r, image.color.g, image.color.b, alp);
+            yield return null;
+            
+        }
         Destroy(gameObject,duration);
         
     }
     
-    IEnumerator ImageFadeIn()
-    {
-        image.color= new Color(image.color.r, image.color.g, image.color.b, 0);
-        image.enabled = true;
-        float alpha = image.color.a;
-        while (alpha < 1 )
-        {
-            alpha+=Time.deltaTime*speed;
-            image.color= new Color(image.color.r, image.color.g, image.color.b, alpha);
-            yield return null;
-            
-        }
-        
-    }
-    
-    
-
   
     
 }

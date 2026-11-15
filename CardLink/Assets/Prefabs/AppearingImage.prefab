@@ -84,7 +84,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2247821967657811395}
-  - component: {fileID: 7425078236450200000}
+  - component: {fileID: 4377697854630051702}
   m_Layer: 5
   m_Name: AppearingImage
   m_TagString: Untagged
@@ -112,7 +112,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 959, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7425078236450200000
+--- !u!114 &4377697854630051702
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,4 +126,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   speed: 1
   image: {fileID: 7629859275084073138}
-  maxDuration: 3
+  duration: 7
+  alp: 0
