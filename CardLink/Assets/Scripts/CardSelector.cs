@@ -23,7 +23,7 @@ public class CardSelector : MonoBehaviour
 
 	// Public
 
-	public void StartSelection(Action<PlayedCard> callback, int minCardAmount = 1)
+	public void StartSelection(Action<PlayedCard> callback, int minCardAmount = 1, bool canPass = true)
 	{
 		if(_isSelecting)
 		{
@@ -39,7 +39,7 @@ public class CardSelector : MonoBehaviour
 		}
 
 		uiManager.HideEverything();
-		uiManager.ShowCardSelectionUI();
+		uiManager.ShowCardSelectionUI(true, canPass);
 
 		p1BoardTerrain.SetIsInteractible(true);
 		p2BoardTerrain.SetIsInteractible(true);
@@ -49,11 +49,19 @@ public class CardSelector : MonoBehaviour
 		_isSelecting = true;
 	}
 
-	public void Validate()
+	public void Validate(bool pass = false)
 	{
 		if(_isSelecting == false)
 		{
 			Debug.LogError("Card Selector, not in sleecting pahse");
+			return;
+		}
+
+		if (pass)
+		{
+			_isSelecting = false;
+			uiManager.ShowCardSelectionUI(false);
+			_currentAction.Invoke(null);
 			return;
 		}
 
@@ -68,9 +76,7 @@ public class CardSelector : MonoBehaviour
 		}
 
 		_isSelecting = false;
-
 		uiManager.ShowCardSelectionUI(false);
-
 		_currentAction.Invoke(selectedCard);
 	}
 }
