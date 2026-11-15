@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
@@ -120,16 +121,8 @@ public class UIManager : MonoBehaviour
 
 	public void ChangingTo(PlayerId player)
 	{
-		if (player == PlayerId.P1)
-		{
-			ChangeToP1.SetActive(true);
-			SetTurn(PlayerId.P1);
-		}
-		else
-		{
-			ChangeToP2.SetActive(true);
-			SetTurn(PlayerId.P2);
-		}
+		StartCoroutine(Changement(player));
+		SetTurn(player);
 	}
 
 	public void ShowGameOver(PlayerId winner)
@@ -149,9 +142,25 @@ public class UIManager : MonoBehaviour
 		}
 	}
 
+	private IEnumerator Changement(PlayerId player)
+	{
+		if (player == PlayerId.P1)
+		{
+			ChangeToP1.SetActive(true);
+			yield return new WaitForSeconds(2f);
+			ChangeToP1.SetActive(false);
+		}
+		else
+		{
+			ChangeToP2.SetActive(true);
+			yield return new WaitForSeconds(2f);
+			ChangeToP2.SetActive(false);
+		}
+	}
+
 	public void Restart()
 	{
-		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		SceneManager.LoadScene("menu");
 	}
 
 	public void ShowStartNewTurnUI(bool value = true)
