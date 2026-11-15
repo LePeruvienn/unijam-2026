@@ -7,10 +7,10 @@ public class GestionEffet : MonoBehaviour
 
 
 
-    // Référence unique vers cette classe
+    // Reference unique vers cette classe
     static GestionEffet _instance;
 
-    // Moyen d'accès hors de la classe
+    // Moyen d'acces hors de la classe
     public static GestionEffet instance
     {
         get
@@ -47,7 +47,7 @@ public class GestionEffet : MonoBehaviour
         switch (effect.trigger)
         {
             case Trigger.Play:
-            Debug.Log("Carte jouée");
+            Debug.Log("Carte jouee");
             break;
             case Trigger.Attack:
             Debug.Log("Carte attaque");

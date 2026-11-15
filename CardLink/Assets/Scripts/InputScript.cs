@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;  
 
-// NOTE: ça devrais s'appeler Hand Manager plutot ?
-// Je vois ce script comme un Vue qui affiche des cartes, il ne devrais pas avoir d'autres resposabilité
+// NOTE: ca devrais s'appeler Hand Manager plutot ?
+// Je vois ce script comme un Vue qui affiche des cartes, il ne devrais pas avoir d'autres resposabilite
 public class InputScript : MonoBehaviour
 {
 	[SerializeField] private GameObject cardVisualPrefab;
@@ -12,13 +12,12 @@ public class InputScript : MonoBehaviour
 	
     public bool persoPlay;
     public bool player1;
-    [SerializeField] int cardNumber; //temp
 
 	// WARNING: C'est pas les cartes de J1 mais les carte acutellement afficher !!!
-	// Rien à voir avec J1 ou J2!!!
+	// Rien a voir avec J1 ou J2!!!
     [SerializeField] List<Transform> p1cards = new List<Transform>();
 
-	// Stockage interne des modèles de cartes pour chaque élément affiché
+	// Stockage interne des modeles de cartes pour chaque element affiche
 	private List<Card> p1CardModels = new List<Card>();
 
     Camera cam;
@@ -29,24 +28,28 @@ public class InputScript : MonoBehaviour
     Vector2 mousePosScreen; //position de la souris, en pixels
     Vector2 mousePos; //position de la souris, entre (-x et x) et (0 et 1)
 
-    List<Vector2> cardPos = new List<Vector2>();
+    List<Vector3> cardPos = new List<Vector3>();
     int selectedCard;
     
     [SerializeField] float distanceForwardToCamera;
+    [SerializeField] float distanceForwardToCameraUp;
     [SerializeField] float distanceBelowToHideFromCamera;
     [SerializeField] float posBelowPutDown;
     [SerializeField] float posBelowPutUp;
     [SerializeField] float posBelowPutSelected;
     [SerializeField] float distanceBetweenCards;
+    [SerializeField] float distanceBetweenCardsUp;
     [SerializeField] float screenProportionToPlay;
 
     [SerializeField] BoardTerrain p1BoardTerrain;
     [SerializeField] BoardTerrain p2BoardTerrain;
     [SerializeField] TurnController turnController;
+    [SerializeField] HeadMovement headMovement;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        headMovement.LookAtCard(false);
         cam = Camera.main;
         mouseClick = false;
         mouseClickSt = false;
@@ -60,7 +63,7 @@ public class InputScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Sécurité pour garder la liste des positions synchronisée si la main change
+        // Securite pour garder la liste des positions synchronisee si la main change
         if (cardPos.Count != p1cards.Count)
         {
             UpdateCardPosListSize();
@@ -69,11 +72,12 @@ public class InputScript : MonoBehaviour
         int currentCount = p1cards.Count;
 
         if(persoPlay){
-            for (int i = 0; i < currentCount; i++)
-            {
-                cardPos[i] = new Vector2(distanceBetweenCards * (i - (currentCount - 1) / 2f), posBelowPutDown);
-            }
             if(mousePos.y <= screenProportionToPlay){
+                for (int i = 0; i < currentCount; i++)
+                {
+                    cardPos[i] = new Vector3(distanceBetweenCards * (i - (currentCount - 1) / 2f), posBelowPutDown, 0f);
+                }
+                headMovement.LookAtCard(true);
                 int newSelectedCard = -1;
                 if(mousePos.x > -0.4f && mousePos.x < -0.15f && currentCount > 0){
                     newSelectedCard = 0;
@@ -85,7 +89,7 @@ public class InputScript : MonoBehaviour
                     newSelectedCard = 2;
                 }
                 if(newSelectedCard != -1 && newSelectedCard < currentCount){
-                    cardPos[newSelectedCard] = new Vector2(distanceBetweenCards * (newSelectedCard - (currentCount - 1) / 2f), posBelowPutUp);
+                    cardPos[newSelectedCard] = new Vector3(distanceBetweenCardsUp * (newSelectedCard - (currentCount - 1) / 2f), posBelowPutUp, distanceForwardToCameraUp);
                     if(mouseClickSt){
                         if(selectedCard == newSelectedCard){
                             selectedCard = -1;
@@ -94,17 +98,24 @@ public class InputScript : MonoBehaviour
                         }
                     }
                 }
+            }else{
+                for (int i = 0; i < currentCount; i++)
+                {
+                    cardPos[i] = -distanceBelowToHideFromCamera * Vector3.up;
+                }
+                headMovement.LookAtCard(false);
             }
             if(selectedCard != -1 && selectedCard < currentCount){
-                cardPos[selectedCard] = new Vector2(distanceBetweenCards * (selectedCard - (currentCount - 1) / 2f), posBelowPutSelected);
+                cardPos[selectedCard] = new Vector3(distanceBetweenCards * (selectedCard - (currentCount - 1) / 2f), posBelowPutSelected, 0f);
             }
 
 
         }else{
             for (int i = 0; i < currentCount; i++)
             {
-                cardPos[i] = -distanceBelowToHideFromCamera * Vector2.up;
+                cardPos[i] = -distanceBelowToHideFromCamera * Vector3.up;
             }
+            headMovement.LookAtCard(false);
         }
 
 
@@ -119,7 +130,7 @@ public class InputScript : MonoBehaviour
         for(int i = 0; i < p1cards.Count; i ++){
             if (p1cards[i] != null)
             {
-                p1cards[i].position = Vector3.Lerp(p1cards[i].position, cam.transform.rotation * new Vector3(cardPos[i].x, cardPos[i].y, distanceForwardToCamera) + cam.transform.position, 0.1f);
+                p1cards[i].position = Vector3.Lerp(p1cards[i].position, cam.transform.rotation * new Vector3(cardPos[i].x, cardPos[i].y, distanceForwardToCamera - cardPos[i].z) + cam.transform.position, 0.1f);
 
 				// AElazealdsqlkdjq c'est hciant
 				Quaternion baseRotation = cam.transform.rotation;
@@ -140,15 +151,14 @@ public class InputScript : MonoBehaviour
         mouseClickSt = false;
     }
 
-    // Petite méthode utilitaire pour garder les tailles de tableaux alignées proprement
+    // Petite methode utilitaire pour garder les tailles de tableaux alignees proprement
     void UpdateCardPosListSize()
     {
         cardPos.Clear();
         for (int i = 0; i < p1cards.Count; i++)
         {
-            cardPos.Add(Vector2.zero);
+            cardPos.Add(Vector3.zero);
         }
-        cardNumber = p1cards.Count; // Garde ton champ temp à jour
     }
 
     public void SetCards(List<Transform> newCards){
@@ -158,12 +168,12 @@ public class InputScript : MonoBehaviour
         Debug.Log("Set cards");
     }
 
-    // Nouvelle méthode SetCards prenant en compte une liste de modèles (Card)
+    // Nouvelle methode SetCards prenant en compte une liste de modeles (Card)
     public void SetCards(List<Card> newCardModels)
     {
         selectedCard = -1;
 
-        // Nettoyage des anciennes vues instanciées dans la scène
+        // Nettoyage des anciennes vues instanciees dans la scene
         foreach (Transform cardTransform in p1cards)
         {
             if (cardTransform != null)
@@ -243,7 +253,7 @@ public class InputScript : MonoBehaviour
     {
         if (index < 0 || index >= p1cards.Count)
         {
-            Debug.LogError("FIIIN ... Frérot tu es cringe");
+            Debug.LogError("FIIIN ... Frerot tu es cringe");
             return Vector3.zero;
         }
 

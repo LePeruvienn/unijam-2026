@@ -44,20 +44,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 123b82f164bcfa445b1b3a4eaa92a702, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InputScript
+  cardVisualPrefab: {fileID: 0}
+  rotationCorrection: 90
   persoPlay: 0
-  cardNumber: 3
+  player1: 0
   p1cards:
   - {fileID: 435033046884887833}
   - {fileID: 3807464005452323563}
   - {fileID: 8457639615064820128}
   distanceForwardToCamera: 1.5
-  distanceBelowToHideFromCamera: 2
+  distanceForwardToCameraUp: 0.45
+  distanceBelowToHideFromCamera: 1.5
   posBelowPutDown: -0.5
-  posBelowPutUp: -0.4
+  posBelowPutUp: -0.25
   posBelowPutSelected: -0.35
   distanceBetweenCards: 0.5
+  distanceBetweenCardsUp: 0.35
   screenProportionToPlay: 0.4
-  BoardTerrain: {fileID: 0}
+  p1BoardTerrain: {fileID: 0}
+  p2BoardTerrain: {fileID: 0}
+  turnController: {fileID: 0}
+  headMovement: {fileID: 0}
 --- !u!1 &3947769907526798625
 GameObject:
   m_ObjectHideFlags: 0

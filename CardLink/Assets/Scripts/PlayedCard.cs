@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class PlayedCard : MonoBehaviour
@@ -37,6 +38,8 @@ public class PlayedCard : MonoBehaviour
 
 	// LIAISONNNNS!!
 	private List<PlayedCard> _linkedCards = new List<PlayedCard>();
+	
+	[SerializeField] GameObject creationEffectPrefab;
 	
 	protected void Update()
 	{
@@ -93,6 +96,18 @@ public class PlayedCard : MonoBehaviour
 		                                       Time.deltaTime * animationSpeed);
 	}
 
+	public void CreationCardEffect(){
+		StartCoroutine(CreationCardEffectCoroutine());
+	}
+	
+	IEnumerator CreationCardEffectCoroutine(){
+		
+		yield return new WaitUntil(() => Vector3.Distance(transform.localPosition, _targetPosition) <= 0.2f);
+
+		GameObject effInst = Instantiate(creationEffectPrefab);
+		effInst.transform.position = transform.position;
+		Destroy(effInst, 5f);
+	}
 	public void SetModel(Card card)
 	{
 		_model = card;
@@ -148,7 +163,7 @@ public class PlayedCard : MonoBehaviour
 				targetCard._linkedCards.Add(this);
 			}
 
-			Debug.Log($"{_model.nom} est lié à {targetCard.GetModel().nom}");
+			Debug.Log($"{_model.nom} est lie a {targetCard.GetModel().nom}");
 		}
 	}
 
@@ -179,12 +194,16 @@ public class PlayedCard : MonoBehaviour
 	// TODO : Animation de mort
 	public void Kill()
 	{
+		RemoveAllLinks();
+		Destroy(gameObject);
+	}
+
+	public void RemoveAllLinks()
+	{
 		// MODIFIE LINKEDCARDS PENDANT LA BOUCLE
 		for (int i = _linkedCards.Count - 1; i >= 0; --i)
 		{
 			RemoveLink(_linkedCards[i]);
 		}
-
-		Destroy(gameObject);
 	}
 }

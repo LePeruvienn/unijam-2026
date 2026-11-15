@@ -15,13 +15,13 @@ MonoBehaviour:
   nom: "Sorci\xE8re"
   force: 2
   image: {fileID: -7539409041017555661, guid: b14378f2e125479b9a7dac179bf590a0, type: 3}
-  aVoyance: 1
+  aVoyance: 0
   aCupidon: 0
   aAmoureux: 0
   aVol: 0
   aLienDeSang: 0
-  aSacage: 1
+  aSacage: 0
   aPostMortem: 0
-  aBriseLien: 0
+  aBriseLien: 1
   aPacifisme: 0
   aBrutal: 0

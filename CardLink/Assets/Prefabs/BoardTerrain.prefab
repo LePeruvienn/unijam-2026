@@ -50,6 +50,8 @@ MonoBehaviour:
   cardWidth: 3
   boardInteraction: {fileID: 0}
   playedCardPrefab: {fileID: 3613447073118337839, guid: 4016ffb0ed734d4eaa2007ce28174368, type: 3}
+  killEffectPrefab: {fileID: 674574757409151167, guid: 3221a291479afac46a53992fc6183d63, type: 3}
+  creationEffectPrefab: {fileID: 2549021747636386319, guid: 42675c025c5c653478d0fd4d06b1f8de, type: 3}
 --- !u!1 &8704220526334650144
 GameObject:
   m_ObjectHideFlags: 0

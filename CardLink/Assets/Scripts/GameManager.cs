@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
 	private Deck _p1Deck = null;
 	private Deck _p2Deck = null;
 
-	// Mains (Gérées ici dans le GameManager)
+	// Mains (Gerees ici dans le GameManager)
 	private List<Card> _p1Hand = new List<Card>();
 	private List<Card> _p2Hand = new List<Card>();
 
@@ -136,7 +136,7 @@ public class GameManager : MonoBehaviour
 			return _p2Deck;
 	}
 
-	// Récupérer la main du joueur actuel
+	// Recuperer la main du joueur actuel
 	private List<Card> GetCurrentPlayerHand()
 	{
 		return (_currentPlayer == PlayerId.P1) ? _p1Hand : _p2Hand;
@@ -193,7 +193,7 @@ public class GameManager : MonoBehaviour
 		if(_p2PV > maxPV) _p2PV = maxPV;
 	}
 
-	// Problème si égalité ?
+	// Probleme si egalite ?
 	private void KillWithLinks(PlayedCard origin)
 	{
 		HashSet<PlayedCard> toKill = new HashSet<PlayedCard>();
@@ -258,7 +258,7 @@ public class GameManager : MonoBehaviour
 
 		DrawCardToHand(deck);
 
-		// Transmettre la main complète du joueur actuel à la vue (InputScript)
+		// Transmettre la main complete du joueur actuel a la vue (InputScript)
 		inputScript.SetCards(GetCurrentPlayerHand());
 
 		if(inputScript.GetCardCount() <= 0)
@@ -407,7 +407,9 @@ public class GameManager : MonoBehaviour
 
 		Debug.Log($"Fight Start : {attackerCard.nom} vs {defenderCard.nom}");
 
-		// Problème si égalité + LINK?
+		headMovement.Shake();
+
+		// Probleme si egalite + LINK?
 		// => il m'as pas l'air d'avoir de bug
 		if (attackerCard.force >= defenderCard.force)
 		{
@@ -429,7 +431,7 @@ public class GameManager : MonoBehaviour
 
 		DisableAllBoardInteractions();
 
-		// Afficher la résolution ...
+		// Afficher la resolution ...
 		// Animation de bagarre ...
 
 		// UI
