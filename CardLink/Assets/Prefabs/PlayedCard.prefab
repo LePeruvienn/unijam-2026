@@ -67,6 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b4f584e446c7493f83b3d6a59ac9f30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayedCard
+  visual: {fileID: 7292092463796975200}
   hoveredPosition: {x: 0, y: 1, z: 0}
   idlePosition: {x: 0, y: 0, z: 0}
   selectPosition: {x: 0, y: 0, z: 1}
@@ -170,3 +171,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8093145686620840423, guid: 9c6138cba23cd9898b6bdb62a95d2a6f, type: 3}
   m_PrefabInstance: {fileID: 6078289045885373026}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7292092463796975200 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3560338339461512194, guid: 9c6138cba23cd9898b6bdb62a95d2a6f, type: 3}
+  m_PrefabInstance: {fileID: 6078289045885373026}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2bfcc23087a9de809ce796f8dcbdd14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CardVisual

@@ -11,6 +11,10 @@ public class PlayedCard : MonoBehaviour
 		Attacking
 	}
 
+	[Header("Visual")]
+	[SerializeField] private CardVisual visual;
+
+
 	[Header("Card Position Offsets")]
 	[SerializeField] private Vector3 hoveredPosition = new Vector3(0f, 0.5f, 0f);
 	[SerializeField] private Vector3 idlePosition    = new Vector3(0f,   0f, 0f);
@@ -74,6 +78,8 @@ public class PlayedCard : MonoBehaviour
 	public void SetModel(Card card)
 	{
 		_model = card;
+
+		visual.SetFromModel(card);
 	}
 
 	public Card GetModel()

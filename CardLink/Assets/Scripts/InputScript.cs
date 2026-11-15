@@ -18,6 +18,9 @@ public class InputScript : MonoBehaviour
 	// Rien à voir avec J1 ou J2!!!
     [SerializeField] List<Transform> p1cards = new List<Transform>();
 
+	// Stockage interne des modèles de cartes pour chaque élément affiché
+	private List<Card> p1CardModels = new List<Card>();
+
     Camera cam;
 
     bool mouseClick; //selectionner
@@ -155,6 +158,44 @@ public class InputScript : MonoBehaviour
         Debug.Log("Set cards");
     }
 
+    // Nouvelle méthode SetCards prenant en compte une liste de modèles (Card)
+    public void SetCards(List<Card> newCardModels)
+    {
+        selectedCard = -1;
+
+        // Nettoyage des anciennes vues instanciées dans la scène
+        foreach (Transform cardTransform in p1cards)
+        {
+            if (cardTransform != null)
+            {
+                Destroy(cardTransform.gameObject);
+            }
+        }
+        p1cards.Clear();
+        p1CardModels.Clear();
+
+        if (newCardModels == null) return;
+
+        // Instanciation et initialisation des nouveaux visuels
+        foreach (Card cardModel in newCardModels)
+        {
+            if (cardModel != null && cardVisualPrefab != null)
+            {
+                GameObject newCardObj = Instantiate(cardVisualPrefab, transform);
+                CardVisual cardVisual = newCardObj.GetComponent<CardVisual>();
+                if (cardVisual != null)
+                {
+                    cardVisual.SetFromModel(cardModel);
+                }
+                p1cards.Add(newCardObj.transform);
+                p1CardModels.Add(cardModel);
+            }
+        }
+
+        UpdateCardPosListSize();
+        Debug.Log("Set cards from List<Card>");
+    }
+
     public void PlayCard(UnityEngine.InputSystem.InputAction.CallbackContext context){
         if(context.ReadValue<float>() == 0){ //temp
             return;
@@ -209,6 +250,16 @@ public class InputScript : MonoBehaviour
         return p1cards[index].position;
     }
 
+    public Card GetCardModel(int index)
+    {
+        if (index < 0 || index >= p1CardModels.Count)
+        {
+            Debug.LogError("Index de carte invalide pour GetCardAtIndex !");
+            return null;
+        }
+        return p1CardModels[index];
+    }
+
 	public void AddCard(Card cardModel)
 	{
 		if (cardModel == null || cardVisualPrefab == null)
@@ -226,6 +277,7 @@ public class InputScript : MonoBehaviour
 		}
 
 		p1cards.Add(newCardObj.transform);
+		p1CardModels.Add(cardModel);
 		UpdateCardPosListSize();
 	}
 
@@ -239,6 +291,10 @@ public class InputScript : MonoBehaviour
 			}
 
 			p1cards.RemoveAt(index);
+			if (index < p1CardModels.Count)
+			{
+				p1CardModels.RemoveAt(index);
+			}
 			
 			if (selectedCard == index)
 			{
@@ -262,4 +318,3 @@ public class InputScript : MonoBehaviour
 		return p1cards.Count;
 	}
 }
-

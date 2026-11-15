@@ -12,8 +12,10 @@ public class GameManager : MonoBehaviour
 	[SerializeField] private BoardTerrain p1BoardTerrain;
 	[SerializeField] private BoardTerrain p2BoardTerrain;
 
-	[Header("Deck")]
+	[Header("Players Data")]
 	[SerializeField] private DeckData deckData;
+	[SerializeField] private int startPV = 3;
+	[SerializeField] private int maxPV = 3;
 
 	// The ID of the player who is playing this turn
 	private PlayerId _currentPlayer = PlayerId.P1;
@@ -26,9 +28,9 @@ public class GameManager : MonoBehaviour
 	private List<Card> _p1Hand = new List<Card>();
 	private List<Card> _p2Hand = new List<Card>();
 
-	// When resolving duels
-	private Card _attackerCard = null;
-	private Card _defenderCard = null;
+	// PVs
+	private int _p1PV = 0;
+	private int _p2PV = 0;
 
 	// Unity Functions
 
@@ -36,6 +38,9 @@ public class GameManager : MonoBehaviour
 	{
 		_p1Deck = new Deck(deckData);
 		_p2Deck = new Deck(deckData);
+
+		_p1PV = startPV;
+		_p2PV = startPV;
 	}
 
 	protected void Start()
@@ -145,6 +150,40 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	private void PlayerTakeDamage(PlayerId player, int amount = 1)
+	{
+		Debug.Log($"Player {player} take {amount} damage!");
+
+		if(player == PlayerId.P1)
+			_p1PV -= amount;
+		else
+			_p2PV -= amount;
+
+		Debug.Log($"P1 Health : {_p1PV} || P2 Health : {_p2PV}");
+
+		if(_p1PV <= 0)
+		{
+			Debug.Log("P1 DEAD !!");
+			_p1PV = 0;
+		}
+		else if(_p2PV <= 0)
+		{
+			Debug.Log("P2 DEAD !!");
+			_p2PV = 0;
+		}
+	}
+
+	private void PlayerHeal(PlayerId player, int amount = 1)
+	{
+		if(player == PlayerId.P1)
+			_p1PV += amount;
+		else
+			_p2PV += amount;
+
+		if(_p1PV > maxPV) _p1PV = maxPV;
+		if(_p2PV > maxPV) _p2PV = maxPV;
+	}
+
 	// Public mehods
 
 	public void StartNewTurn()
@@ -202,6 +241,7 @@ public class GameManager : MonoBehaviour
 		ShowHand(false);
 		
 		Vector3 cardPosition = inputScript.GetCardPosition(cardIndex);
+		Card cardModel = inputScript.GetCardModel(cardIndex);
 
 		// Remove card from hand
 		inputScript.RemoveCard(cardIndex);
@@ -209,7 +249,7 @@ public class GameManager : MonoBehaviour
 		// Adding card to terrain
 		BoardTerrain terrain = GetPlayerBoardTerrain(_currentPlayer);
 
-		terrain.AddNewCard(null, cardPosition);
+		terrain.AddNewCard(cardModel, cardPosition);
 
 		EndTurn();
 	}
@@ -267,7 +307,7 @@ public class GameManager : MonoBehaviour
 		}
 		else
 		{
-			// TODO: Apply Damage
+			PlayerTakeDamage(oppenent);
 			EndTurn();
 		}
 	}
@@ -283,8 +323,45 @@ public class GameManager : MonoBehaviour
 		if (success)
 		{
 			DisableAllBoardInteractions();
-			EndTurn();
+			uiManager.HideEverything();
+			MakeResolution();
 		}
+	}
+
+	public void MakeResolution()
+	{
+		PlayerId attacker = _currentPlayer;
+		PlayerId defender = GetNextPlayer();
+
+		BoardTerrain attackerTerrain = GetPlayerBoardTerrain(attacker);
+		BoardTerrain defenderTerrain = GetPlayerBoardTerrain(defender);
+
+		PlayedCard attackerPlayedCard = attackerTerrain.GetAttackingCard();
+		PlayedCard defenderPlayedCard = defenderTerrain.GetAttackingCard();
+
+		if (attackerPlayedCard == null || defenderPlayedCard == null)
+			Debug.LogError("Failed to set make resolution, attacking PlayedCard null");
+
+		Card attackerCard = attackerPlayedCard.GetModel();
+		Card defenderCard =	defenderPlayedCard.GetModel();
+
+		if (attackerCard == null || defenderCard == null)
+			Debug.LogError("Failed to set make resolution, attacking Card model null");
+
+		Debug.Log($"Fight Start : {attackerCard.nom} vs {defenderCard.nom}");
+
+		if (attackerCard.force >= defenderCard.force)
+		{
+			defenderTerrain.KillCard(defenderPlayedCard);
+			Debug.Log($"DIED {defenderCard.nom} !");
+		}
+		if(attackerCard.force <= defenderCard.force)
+		{
+			attackerTerrain.KillCard(attackerPlayedCard);
+			Debug.Log($"DIED {attackerCard.nom} !");
+		}
+
+		EndTurn();
 	}
 
 	public void EndTurn()

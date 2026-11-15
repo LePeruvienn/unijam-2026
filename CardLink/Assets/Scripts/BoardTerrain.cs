@@ -107,6 +107,11 @@ public class BoardTerrain : MonoBehaviour
 
 	public void AddNewCard(Card card, Vector3 spawnPos)
 	{
+		if(card == null)
+		{
+			Debug.LogWarning("Added a card with a null model");
+		}
+
 		PlayedCard played = Instantiate(playedCardPrefab, spawnPos, Quaternion.identity, transform);
 
 		played.SetModel(card);
@@ -186,6 +191,21 @@ public class BoardTerrain : MonoBehaviour
 		return null;
 	}
 
+	public PlayedCard GetAttackingCard()
+	{
+		for (int i = 0; i < playedCards.Count; ++i)
+		{
+			PlayedCard played = playedCards[i];
+
+			if (played.GetState() == PlayedCard.State.Attacking)
+			{
+				return played;
+			}
+		}
+
+		return null;
+	}
+
 	public bool ApplySelection()
 	{
 		PlayedCard selected = GetSelectedCard();
@@ -200,7 +220,7 @@ public class BoardTerrain : MonoBehaviour
 		}
 		else
 		{
-			Debug.LogError("Couldnt apply selection");
+			Debug.LogWarning("Couldnt apply selection");
 			return false;
 		}
 	}
