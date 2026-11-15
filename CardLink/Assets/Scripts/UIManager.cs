@@ -43,10 +43,10 @@ public class UIManager : MonoBehaviour
 		    DefendSelectionUI == null ||
 		    GameOverUIP1 == null ||
 		    GameOverUIP2 == null ||
-		    PV1Panel == null ||
-		    PV2Panel  == null ||
-		    P1PV == null ||
-		    P2PV == null ||
+		    //PV1Panel == null ||
+		    //PV2Panel  == null ||
+		    //P1PV == null ||
+		    //P2PV == null ||
 		    P1Turn == null ||
 		    P2Turn == null ||
 		    ChangeToP1 == null ||
@@ -56,11 +56,12 @@ public class UIManager : MonoBehaviour
 			Debug.LogError("UIManager: One or more UI references are missing!", this);
 		}
 
-		PV1Panel = P1PV[2];
-		PV1Panel.SetActive(true);
-		PV2Panel = P2PV[2];
-		PV2Panel.SetActive(true);
+		//PV1Panel = P1PV[2];
+		//PV1Panel.SetActive(true);
+		//PV2Panel = P2PV[2];
+		//PV2Panel.SetActive(true);
 		P1Turn.SetActive(true);
+		SetTurn(PlayerId.P1);
 
 		HideEverything();
 	}
@@ -96,6 +97,8 @@ public class UIManager : MonoBehaviour
 			foreach (GameObject button in Buttons)
 			{
 				var skin =  button.GetComponent<ButtonSkin>();
+				Debug.Log("button changé");
+				
 				skin.P1Turn();
 			}
 		}

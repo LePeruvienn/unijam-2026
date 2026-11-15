@@ -559,6 +559,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSkin
   p1Turn: {fileID: 2986095105091660353, guid: f1c0c4283918e6442b5aa668e092fb23, type: 3}
   p2Turn: {fileID: 3502715887467967171, guid: eb15780e882ea0b4cb9af2bb07ca6f41, type: 3}
+  image: {fileID: 0}
 --- !u!1 &1002754344359688170
 GameObject:
   m_ObjectHideFlags: 0
@@ -783,6 +784,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSkin
   p1Turn: {fileID: 2986095105091660353, guid: f1c0c4283918e6442b5aa668e092fb23, type: 3}
   p2Turn: {fileID: 3502715887467967171, guid: eb15780e882ea0b4cb9af2bb07ca6f41, type: 3}
+  image: {fileID: 0}
 --- !u!1 &1236923835022430576
 GameObject:
   m_ObjectHideFlags: 0
@@ -931,6 +933,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSkin
   p1Turn: {fileID: 2986095105091660353, guid: f1c0c4283918e6442b5aa668e092fb23, type: 3}
   p2Turn: {fileID: 3502715887467967171, guid: eb15780e882ea0b4cb9af2bb07ca6f41, type: 3}
+  image: {fileID: 0}
 --- !u!1 &1616642836846246934
 GameObject:
   m_ObjectHideFlags: 0
@@ -1353,6 +1356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSkin
   p1Turn: {fileID: 2986095105091660353, guid: f1c0c4283918e6442b5aa668e092fb23, type: 3}
   p2Turn: {fileID: 3502715887467967171, guid: eb15780e882ea0b4cb9af2bb07ca6f41, type: 3}
+  image: {fileID: 0}
 --- !u!1 &2581304818440686789
 GameObject:
   m_ObjectHideFlags: 0
@@ -1642,6 +1646,81 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &5136820470447382971
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3666174022598941270}
+  - component: {fileID: 7475273110627418492}
+  - component: {fileID: 7007601085653971611}
+  m_Layer: 5
+  m_Name: P2WIN
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &3666174022598941270
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5136820470447382971}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1809055402415057051}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &7475273110627418492
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5136820470447382971}
+  m_CullTransparentMesh: 1
+--- !u!114 &7007601085653971611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5136820470447382971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 5361944397097762029, guid: 5c28052b26c0184419e2c821ff82bdec, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &5832902144182436802
 GameObject:
   m_ObjectHideFlags: 0
@@ -2144,6 +2223,81 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &7383954078666383939
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1781948764362790552}
+  - component: {fileID: 7891815137543982343}
+  - component: {fileID: 6678797367040293194}
+  m_Layer: 5
+  m_Name: P1WIN
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1781948764362790552
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7383954078666383939}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1809055402415057051}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &7891815137543982343
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7383954078666383939}
+  m_CullTransparentMesh: 1
+--- !u!114 &6678797367040293194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7383954078666383939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 5361944397097762029, guid: 5c28052b26c0184419e2c821ff82bdec, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &7850522102873398022
 GameObject:
   m_ObjectHideFlags: 0
@@ -2336,6 +2490,8 @@ RectTransform:
   - {fileID: 5190051494046482208}
   - {fileID: 7207649376589692981}
   - {fileID: 8076929409235184763}
+  - {fileID: 1781948764362790552}
+  - {fileID: 3666174022598941270}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2424,17 +2580,25 @@ MonoBehaviour:
   AttackSelectionUI: {fileID: 1002754344359688170}
   DefendSelectionUI: {fileID: 7850522102873398022}
   LinkSelectionUI: {fileID: 5832902144182436802}
-  GameOverUIP1: {fileID: 0}
-  GameOverUIP2: {fileID: 0}
+  GameOverUIP1: {fileID: 7383954078666383939}
+  GameOverUIP2: {fileID: 5136820470447382971}
   PV1Panel: {fileID: 0}
   PV2Panel: {fileID: 0}
   P1PV: []
   P2PV: []
-  P1Turn: {fileID: 0}
-  P2Turn: {fileID: 0}
-  ChangeToP1: {fileID: 0}
-  ChangeToP2: {fileID: 0}
-  Buttons: []
+  P1Turn: {fileID: 5897672834863831895}
+  P2Turn: {fileID: 2581304818440686789}
+  ChangeToP1: {fileID: 5897672834863831895}
+  ChangeToP2: {fileID: 2581304818440686789}
+  Buttons:
+  - {fileID: 8865667961156133711}
+  - {fileID: 1166697920790112576}
+  - {fileID: 8848564568403648136}
+  - {fileID: 911849346651725615}
+  - {fileID: 2314262020617230315}
+  - {fileID: 8677174267671473606}
+  - {fileID: 1236923835022430576}
+  - {fileID: 8614300727264127588}
 --- !u!1 &8614300727264127588
 GameObject:
   m_ObjectHideFlags: 0
@@ -2583,6 +2747,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSkin
   p1Turn: {fileID: 2986095105091660353, guid: f1c0c4283918e6442b5aa668e092fb23, type: 3}
   p2Turn: {fileID: 3502715887467967171, guid: eb15780e882ea0b4cb9af2bb07ca6f41, type: 3}
+  image: {fileID: 0}
 --- !u!1 &8677174267671473606
 GameObject:
   m_ObjectHideFlags: 0
@@ -2731,6 +2896,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSkin
   p1Turn: {fileID: 2986095105091660353, guid: f1c0c4283918e6442b5aa668e092fb23, type: 3}
   p2Turn: {fileID: 3502715887467967171, guid: eb15780e882ea0b4cb9af2bb07ca6f41, type: 3}
+  image: {fileID: 0}
 --- !u!1 &8848564568403648136
 GameObject:
   m_ObjectHideFlags: 0
@@ -2879,6 +3045,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSkin
   p1Turn: {fileID: 2986095105091660353, guid: f1c0c4283918e6442b5aa668e092fb23, type: 3}
   p2Turn: {fileID: 3502715887467967171, guid: eb15780e882ea0b4cb9af2bb07ca6f41, type: 3}
+  image: {fileID: 0}
 --- !u!1 &8865667961156133711
 GameObject:
   m_ObjectHideFlags: 0
@@ -3027,3 +3194,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSkin
   p1Turn: {fileID: 2986095105091660353, guid: f1c0c4283918e6442b5aa668e092fb23, type: 3}
   p2Turn: {fileID: 3502715887467967171, guid: eb15780e882ea0b4cb9af2bb07ca6f41, type: 3}
+  image: {fileID: 1463468290984215046}
