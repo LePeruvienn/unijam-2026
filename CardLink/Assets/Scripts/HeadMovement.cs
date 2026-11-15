@@ -16,6 +16,9 @@ public class HeadMovement : MonoBehaviour
     [SerializeField] Vector3 p2HeadPosCard;
     [SerializeField] Vector3 p2HeadRotCard;
 
+    [SerializeField] float transitionCardDuration;
+    [SerializeField] float transitionPlayerDuration;
+
     Vector3 posToBe;
     Vector3 posToReallyBe;
 
@@ -73,7 +76,7 @@ public class HeadMovement : MonoBehaviour
                 posToReallyBe = Vector3.Lerp(Vector3.Lerp(GetHeadOriPos(false), intermediaryHeadPos, tempVar), GetHeadOriPos(true), Mathf.Pow(tempVar, 1.5f));
                 rotToReallyBe = Vector3.Lerp(GetHeadOriRot(false), GetHeadOriRot(true), tempVar);
             }
-            tempVar += Time.deltaTime * 1f;
+            tempVar += Time.deltaTime / transitionPlayerDuration;
             yield return null;
         }
         if(player1to2){
@@ -105,9 +108,9 @@ public class HeadMovement : MonoBehaviour
     //appele dans le update de inputscript
     public void LookAtCard(bool atCard){
         if(!atCard){
-            howMuchCardLooking = Mathf.Max(howMuchCardLooking -= Time.deltaTime*5f, 0f);
+            howMuchCardLooking = Mathf.Max(howMuchCardLooking -= Time.deltaTime/transitionCardDuration, 0f);
         }else{
-            howMuchCardLooking = Mathf.Min(howMuchCardLooking += Time.deltaTime*5f, 1f);
+            howMuchCardLooking = Mathf.Min(howMuchCardLooking += Time.deltaTime/transitionCardDuration, 1f);
         }
     }
 

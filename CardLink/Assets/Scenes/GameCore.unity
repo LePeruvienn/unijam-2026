@@ -2008,6 +2008,8 @@ MonoBehaviour:
   p1HeadRotCard: {x: 60, y: 0, z: 0}
   p2HeadPosCard: {x: 0, y: 12.5, z: 13.5}
   p2HeadRotCard: {x: 60, y: -180, z: 0}
+  transitionCardDuration: 0.3
+  transitionPlayerDuration: 1
   mustLook: 0
 --- !u!1 &807782799
 GameObject:
