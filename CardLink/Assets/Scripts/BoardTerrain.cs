@@ -19,6 +19,8 @@ public class BoardTerrain : MonoBehaviour
 	private bool _rotateCards = false;
 	private bool _isInteractible = true;
 
+	[SerializeField] GameObject killEffectPrefab;
+
 	// Unity Functions
 
 	protected void Update()
@@ -262,6 +264,9 @@ public class BoardTerrain : MonoBehaviour
 
 		if (sucess)
 		{
+			GameObject effInst = Instantiate(killEffectPrefab);
+			effInst.transform.position = target.transform.position;
+			Destroy(effInst, 5f);
 			target.Kill();
 			return true;
 		}
