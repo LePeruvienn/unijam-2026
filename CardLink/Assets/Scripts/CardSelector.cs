@@ -14,11 +14,27 @@ public class CardSelector : MonoBehaviour
 	private bool _isSelecting = false;
 	private Action<PlayedCard> _currentAction;
 
-	public void StartSelection(Action<PlayedCard> callback)
+	// Helper
+	
+	private int GetTotalCardAmount()
+	{
+		return p1BoardTerrain.GetCardCount() + p2BoardTerrain.GetCardCount();
+	}
+
+	// Public
+
+	public void StartSelection(Action<PlayedCard> callback, int minCardAmount = 1)
 	{
 		if(_isSelecting)
 		{
 			Debug.LogError("Already seleting card!");
+			return;
+		}
+
+		if (GetTotalCardAmount() < minCardAmount)
+		{
+			Debug.LogWarning("Not enought card to apply selector effect");
+			callback.Invoke(null);
 			return;
 		}
 

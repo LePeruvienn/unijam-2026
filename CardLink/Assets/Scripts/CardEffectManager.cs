@@ -3,8 +3,11 @@ using System;
 
 public class CardEffectManager : MonoBehaviour
 {
+	[SerializeField] private float voyanteTimeToSee = 2f;
+
 	[SerializeField] private CardLinker carLinkder;
 	[SerializeField] private CardSelector cardSelector;
+	[SerializeField] private LinkRevealer linkRevealer;
 
 	// Effects Handlers
 
@@ -45,9 +48,11 @@ public class CardEffectManager : MonoBehaviour
 			Debug.Log($"Effet déclenché : Delete links pour {cardModel.nom}");
 			cardSelector.StartSelection((PlayedCard selectedCard) => 
 			{
- 				selectedCard.RemoveAllLinks();
+				if(selectedCard != null)
+					selectedCard.RemoveAllLinks();
+
 				onEffectComplete?.Invoke();
-			});
+			}, 2);
 			return;
 		}
 
@@ -57,9 +62,12 @@ public class CardEffectManager : MonoBehaviour
 			Debug.Log($"Effet déclenché : Voyance pour {cardModel.nom}");
 			cardSelector.StartSelection((PlayedCard selectedCard) => 
 			{
-				Debug.Log($"Voyante regarde carte : {selectedCard}");
+				if(selectedCard != null)
+				{
+					linkRevealer.RevealLink(selectedCard, voyanteTimeToSee);
+				}
 				onEffectComplete?.Invoke();
-			});
+			}, 2);
 			return;
 		}
 

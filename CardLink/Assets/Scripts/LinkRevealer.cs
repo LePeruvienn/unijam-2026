@@ -29,6 +29,8 @@ public class LinkRevealer : MonoBehaviour
         GameObject lineObject = new GameObject("LinkLine");
         lineObject.transform.SetParent(transform);
 
+        lineObject.transform.SetParent(transform);
+
         LineRenderer line = lineObject.AddComponent<LineRenderer>();
         line.material = lineMaterial;
         line.startColor =  color;
@@ -48,5 +50,7 @@ public class LinkRevealer : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
+
+		Destroy(lineObject);
     }
 }
