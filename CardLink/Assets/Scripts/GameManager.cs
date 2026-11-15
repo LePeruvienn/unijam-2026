@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
 	[SerializeField] private int startPV = 3;
 	[SerializeField] private int maxPV = 3;
 
+	[SerializeField] HealthBar healthBar1;
+	[SerializeField] HealthBar healthBar2;
+
 	// The ID of the player who is playing this turn
 	private PlayerId _currentPlayer = PlayerId.P1;
 
@@ -180,6 +183,9 @@ public class GameManager : MonoBehaviour
 			Debug.Log("P2 DEAD !!");
 			_p2PV = 0;
 		}
+		healthBar1.currentHealth = _p1PV;
+		healthBar2.currentHealth = _p2PV;
+
 	}
 
 	private void PlayerHeal(PlayerId player, int amount = 1)
