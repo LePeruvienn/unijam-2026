@@ -29,7 +29,7 @@ public class TurnController : MonoBehaviour
         SetPhase(TurnPhase.ChooseAction, PlayerId.P1);
     }
 
-    void SetPhase(TurnPhase turnPhase, PlayerId decider)
+    public void SetPhase(TurnPhase turnPhase, PlayerId decider)
     {
         if(CurrentPlayer != decider){
             headMovement.ChangeHeadPos((int)decider == 1);

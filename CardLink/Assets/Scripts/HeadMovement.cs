@@ -20,6 +20,12 @@ public class HeadMovement : MonoBehaviour
         transform.position = p1HeadPos;
         transform.rotation = Quaternion.Euler(p1HeadRot);
     }
+
+    // NOTE: On comprend pas ce que veut dire le nom de la variable ????
+	//       ça devrait être un truc du genre :
+	//       - toPlayer1 (on va au P1 si true et au P2 du coup si false)
+	//       - un enum genre PlayerID (P1 et P2)
+	//       Sinon la on regarde le code on comprend pas
     public void ChangeHeadPos(bool player1to2){
         StartCoroutine(ChangeHeadPosCoroutine(player1to2));
     }

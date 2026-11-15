@@ -3,12 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;  
 
+// NOTE: ça devrais s'appeler Hand Manager plutot ?
+// Je vois ce script comme un Vue qui affiche des cartes, il ne devrais pas avoir d'autres resposabilité
 public class InputScript : MonoBehaviour
 {
     public bool persoPlay;
     public bool player1;
     [SerializeField] int cardNumber; //temp
-    [SerializeField] Transform[] p1cards;
+
+	// WARNING: C'est pas les cartes de J1 mais les carte acutellement afficher !!!
+	// Rien à voir avec J1 ou J2!!!
+    [SerializeField] Transform[] p1cards; 
 
     Camera cam;
 
@@ -152,4 +157,33 @@ public class InputScript : MonoBehaviour
         mouseClickSt = context.ReadValue<float>() == 1;
     }
 
+    public BoardTerrain GetCurrentBoardTerrain()
+    {
+        return (player1) ? p1BoardTerrain : p2BoardTerrain;
+    }
+
+	public int GetSelectedCard()
+	{
+		return selectedCard;
+	}
+
+	public Vector3 GetCardPosition(int index)
+	{
+		if (index < 0 || index > p1cards.Length)
+		{
+			Debug.LogError("FIIIN ... Frérot tu es cringe");
+			return Vector3.zero;
+		}
+
+		return p1cards[index].position;
+	}
+
+	public void AddCard()
+	{
+		// TODO
+	}
+	public void RemoveCard(int index)
+	{
+		// TODO
+	}
 }

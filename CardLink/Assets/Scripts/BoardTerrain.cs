@@ -39,6 +39,9 @@ public class BoardTerrain : MonoBehaviour
 		{
 			PlayedCard card = playedCards[i];
 
+			if (card.GetState() == PlayedCard.State.Attacking)
+				continue;
+
 			card.SetState(PlayedCard.State.Idle);
 
 			float x = GetCardPosition(i);
@@ -104,8 +107,10 @@ public class BoardTerrain : MonoBehaviour
 
 	public void AddNewCard(Card card, Vector3 spawnPos)
 	{
-		PlayedCard played = Instantiate(playedCardPrefab, spawnPos, Quaternion.identity, this.transform);
+		PlayedCard played = Instantiate(playedCardPrefab, spawnPos, Quaternion.identity, transform);
+
 		played.SetModel(card);
+		played.SetIsRotated(_rotateCards);
 
 		playedCards.Add(played);
 	}
@@ -187,7 +192,9 @@ public class BoardTerrain : MonoBehaviour
 
 		if (selected != null)
 		{
-			selected.SetTargetPosition(attackSlot.localPosition);
+			Vector3 targetPosition = attackSlot.localPosition;
+
+			selected.SetTargetPosition(targetPosition);
 			selected.SetState(PlayedCard.State.Attacking);
 			return true;
 		}
@@ -221,5 +228,10 @@ public class BoardTerrain : MonoBehaviour
 			Debug.LogError("Failed to kill card");
 			return false;
 		}
+	}
+
+	public bool HaveCards()
+	{
+		return (playedCards.Count > 0);
 	}
 }

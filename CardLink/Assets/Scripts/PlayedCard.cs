@@ -14,15 +14,13 @@ public class PlayedCard : MonoBehaviour
 	[Header("Card Position Offsets")]
 	[SerializeField] private Vector3 hoveredPosition = new Vector3(0f, 0.5f, 0f);
 	[SerializeField] private Vector3 idlePosition    = new Vector3(0f,   0f, 0f);
-	[SerializeField] private Vector3 attackPosition  = new Vector3(0.5f, 0f, 0f);
+	[SerializeField] private Vector3 selectPosition  = new Vector3(0f, 0f, 1f);
 
 	[Header("Animations")]
 	[SerializeField] private float animationSpeed = 2f;
 
 	private bool _isRotated = false;
 
-	[Header("DEBUG")]
-	[SerializeField]
 	private State _state = State.Idle;
 
 	[SerializeField]
@@ -38,28 +36,18 @@ public class PlayedCard : MonoBehaviour
 
 	private void UpdateRotation()
 	{
-		if (_isRotated)
-		{
-			Vector3 targetRotation = transform.localEulerAngles;
-			targetRotation.y = 180f;
+		Quaternion targetRotation = Quaternion.Euler(
+			0f,
+			_isRotated ? 180f : 0f,
+			0f
+		);
 
-			transform.localEulerAngles = Vector3.Lerp(
-				transform.localEulerAngles,
-				targetRotation,
-				Time.deltaTime * animationSpeed);
-		}
-		else
-		{
-			Vector3 targetRotation = transform.localEulerAngles;
-			targetRotation.y = 0f;
-
-			transform.localEulerAngles = Vector3.Lerp(
-				transform.localEulerAngles,
-				targetRotation,
-				Time.deltaTime * animationSpeed);
-		}
+		transform.localRotation = Quaternion.Lerp(
+			transform.localRotation,
+			targetRotation,
+			Time.deltaTime * animationSpeed
+		);
 	}
-
 	private void UpdatePosition()
 	{
 		Vector3 position = _targetPosition;
@@ -75,9 +63,7 @@ public class PlayedCard : MonoBehaviour
 				break;
 
 			case State.Selected:
-				Vector3 offset = (_isRotated) ?
-					attackPosition * -1 : attackPosition;
-				position += offset;
+				position += transform.localRotation * selectPosition;
 				break;
 		}
 
