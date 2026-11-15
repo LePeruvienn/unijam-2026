@@ -6,8 +6,7 @@ public class AppearingImage : MonoBehaviour
 {
     public float speed = 1;
     public Image image;
-    public float maxDuration=3;
-    private float _duration = 0;
+    [SerializeField] private float duration;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,18 +23,8 @@ public class AppearingImage : MonoBehaviour
     void Update()
     {
         
-        if (_duration < maxDuration)
-        {
-            _duration += Time.deltaTime;
-        }
-        else
-        {
-            Destroy(gameObject);
-            
-        }
+        Destroy(gameObject,duration);
         
-        
-       
     }
     
     IEnumerator ImageFadeIn()

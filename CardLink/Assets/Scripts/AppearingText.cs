@@ -9,7 +9,7 @@ public class AppearingText : MonoBehaviour
     public Text textMess;
     public string message;
     public float maxDuration=3;
-    private float _duration = 0;
+    [SerializeField] private float duration;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,18 +28,8 @@ public class AppearingText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Destroy(gameObject, duration);
         
-        if (_duration < maxDuration)
-        {
-            _duration += Time.deltaTime;
-        }
-        else
-        {
-            Destroy(gameObject);
-            
-        }
-        
-       
     }
     
     IEnumerator ImageFadeIn()
