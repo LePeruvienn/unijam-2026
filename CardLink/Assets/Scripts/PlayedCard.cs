@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 
 public class PlayedCard : MonoBehaviour
 {
@@ -40,6 +41,7 @@ public class PlayedCard : MonoBehaviour
 	private List<PlayedCard> _linkedCards = new List<PlayedCard>();
 	
 	[SerializeField] GameObject creationEffectPrefab;
+	[SerializeField] TextMeshPro description;
 	
 	protected void Update()
 	{

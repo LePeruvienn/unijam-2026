@@ -7,6 +7,7 @@ public class Card : ScriptableObject
     public string nom;
     public int force;
     public Sprite image;
+    public string description;
 
 
     [Header("Entree en jeu")]
