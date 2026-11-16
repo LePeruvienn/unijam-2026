@@ -8,12 +8,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/menu.unity
     guid: 9442e4cb7c8a299189a75c08e61a8f5e
-  - enabled: 1
+  - enabled: 0
     path: Assets/zeineb.unity
     guid: 2121126745d5248c38c1c58821b26ced
   - enabled: 1
     path: Assets/Options.unity
     guid: c6c16565edced8056b8dd0b9aec9ae3c
+  - enabled: 1
+    path: Assets/Ingame.unity
+    guid: 8e06d3d0caa37a73795354af73f87822
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   m_UseUCBPForAssetBundles: 0
