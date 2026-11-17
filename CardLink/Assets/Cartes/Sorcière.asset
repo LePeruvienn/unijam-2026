@@ -15,6 +15,7 @@ MonoBehaviour:
   nom: "Sorci\xE8re"
   force: 2
   image: {fileID: -7539409041017555661, guid: b14378f2e125479b9a7dac179bf590a0, type: 3}
+  description: Remove every links to a card
   aVoyance: 0
   aCupidon: 0
   aAmoureux: 0

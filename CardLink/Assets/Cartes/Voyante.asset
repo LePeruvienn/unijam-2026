@@ -15,6 +15,7 @@ MonoBehaviour:
   nom: Voyante
   force: 4
   image: {fileID: 7132553319431534796, guid: f05983c1430d7c70ab8379026cf53206, type: 3}
+  description: Look at every links of a card
   aVoyance: 1
   aCupidon: 0
   aAmoureux: 0

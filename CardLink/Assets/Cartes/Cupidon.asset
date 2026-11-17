@@ -15,6 +15,7 @@ MonoBehaviour:
   nom: Cupidon
   force: 2
   image: {fileID: 3331232167538127031, guid: bedbcb7ded6eeb63fb81589aa98c7224, type: 3}
+  description: Select two cards to be linked
   aVoyance: 0
   aCupidon: 1
   aAmoureux: 0

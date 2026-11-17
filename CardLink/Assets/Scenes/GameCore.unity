@@ -2522,8 +2522,8 @@ MonoBehaviour:
   p1BoardTerrain: {fileID: 916538439}
   p2BoardTerrain: {fileID: 1725749930}
   deckData: {fileID: 11400000, guid: 05618b6f97d8010139c555d25278e901, type: 2}
-  startPV: 1
-  maxPV: 1
+  startPV: 3
+  maxPV: 3
   healthBar1: {fileID: 1023723049}
   healthBar2: {fileID: 651470265}
 --- !u!4 &1300853296

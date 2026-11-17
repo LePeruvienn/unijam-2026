@@ -373,6 +373,9 @@ public class GameManager : MonoBehaviour
 		else
 		{
 			PlayerTakeDamage(oppenent);
+
+			if (_p1PV <= 0 ||_p2PV <= 0)
+				return;
 			EndTurn();
 		}
 	}
